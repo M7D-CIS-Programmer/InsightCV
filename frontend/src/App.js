@@ -9,9 +9,8 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import CompanyLandingPage from './pages/company/CompanyLandingPage';
-import PostJobPage from './pages/company/PostJobPage';
 import './App.css';
+import CompanyHomePage from './pages/CompanyHomePage';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = React.useState(true);
@@ -36,8 +35,9 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/company" element={<CompanyLandingPage />} />
-          <Route path="/company/post-job" element={<PostJobPage />} />
+
+          <Route path="/company-home/*" element={<CompanyHomePage />} />
+
           <Route path="/" element={
             <>
               {/* Background particles */}

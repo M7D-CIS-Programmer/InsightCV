@@ -24,7 +24,8 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Contact', href: '#contact' },
+    { name: 'Company', href: '/company-home' }
   ];
 
   return (
@@ -47,7 +48,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         {/* Desktop Navigation */}
         <div className="navbar-links">
           {navItems.map((item, index) => (
-            item.name === 'Home' ? (
+            item.href && item.href.startsWith('/') ? (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: -20 }}
@@ -58,7 +59,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                   textShadow: "0 0 10px rgba(255, 87, 34, 0.5)"
                 }}
               >
-                <Link to="/" className="navbar-link">{item.name}</Link>
+                <Link to={item.href} className="navbar-link">{item.name}</Link>
               </motion.div>
             ) : (
               <motion.a
@@ -124,7 +125,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         transition={{ duration: 0.3 }}
       >
         {navItems.map((item, index) => (
-          item.name === 'Home' ? (
+          item.href && item.href.startsWith('/') ? (
             <motion.div
               key={item.name}
               initial={{ opacity: 0, x: -20 }}
@@ -135,7 +136,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
               transition={{ delay: index * 0.1 }}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <Link to="/" className="mobile-menu-link">{item.name}</Link>
+              <Link to={item.href} className="mobile-menu-link">{item.name}</Link>
             </motion.div>
           ) : (
             <motion.a
