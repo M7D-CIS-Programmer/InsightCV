@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { User, Mail, Phone, MapPin, Briefcase, Calendar, Edit2, Save, Award, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import EmployeeNavbar from '../components/EmployeeNavbar';
+import Footer from '../components/Footer';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
@@ -356,6 +357,8 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

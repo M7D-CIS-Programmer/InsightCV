@@ -3,7 +3,7 @@ import NavbarCompany from '../components/companyHome/NavbarCompany';
 import HeroCompany from '../components/companyHome/HeroCompany';
 import QuickInfo from '../components/companyHome/QuickInfo';
 import RecentAds from '../components/companyHome/RecentAds';
-import FooterCompany from '../components/companyHome/FooterCompany';
+import Footer from '../components/Footer';
 import './CompanyHomePage.css';
 
 export default function CompanyHomePage() {
@@ -21,7 +21,7 @@ export default function CompanyHomePage() {
         <QuickInfo />
         <RecentAds />
       </main>
-      <FooterCompany />
+      <Footer />
     </div>
   );
 }

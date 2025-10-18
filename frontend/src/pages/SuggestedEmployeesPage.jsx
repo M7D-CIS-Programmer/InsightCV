@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Star, MapPin, Briefcase, Mail, Phone, Download, Eye, Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 import './SuggestedEmployeesPage.css';
 
 export default function SuggestedEmployeesPage() {
@@ -403,6 +404,8 @@ export default function SuggestedEmployeesPage() {
           </motion.div>
         </motion.div>
       )}
+
+      <Footer />
     </div>
   );
 }

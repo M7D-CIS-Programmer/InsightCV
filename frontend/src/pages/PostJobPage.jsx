@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, ArrowLeft, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 import './PostJobPage.css';
 
 export default function PostJobPage() {
@@ -193,6 +194,8 @@ export default function PostJobPage() {
           </form>
         </motion.div>
       </div>
+
+      <Footer />
     </div>
   );
 }

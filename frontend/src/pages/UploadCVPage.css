@@ -149,6 +149,12 @@
   font-weight: 600;
 }
 
+.job-title-inputs {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
 .job-title-select {
   width: 100%;
   padding: 1rem;
@@ -170,6 +176,27 @@
 .job-title-select option {
   background: #1a1a2e;
   color: white;
+}
+
+.custom-job-title-input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.custom-job-title-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.custom-job-title-input:focus {
+  outline: none;
+  border-color: rgba(255, 215, 0, 0.5);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .analyze-btn {

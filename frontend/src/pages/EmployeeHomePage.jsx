@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Upload, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import EmployeeNavbar from '../components/EmployeeNavbar';
+import Footer from '../components/Footer';
 import './EmployeeHomePage.css';
 
 const container = {
@@ -160,10 +161,7 @@ export default function EmployeeHomePage() {
         </div>
       </motion.section>
 
-      {/* Footer */}
-      <footer className="employee-footer">
-        <p>© 2025 InsightCV. Empowering your career with AI.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

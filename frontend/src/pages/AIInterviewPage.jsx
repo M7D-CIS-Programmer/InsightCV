@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Mic, Send, ArrowLeft, Award, TrendingUp, Target, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import EmployeeNavbar from '../components/EmployeeNavbar';
+import Footer from '../components/Footer';
 import './AIInterviewPage.css';
 
 export default function AIInterviewPage() {
@@ -370,6 +371,8 @@ export default function AIInterviewPage() {
           </motion.div>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }

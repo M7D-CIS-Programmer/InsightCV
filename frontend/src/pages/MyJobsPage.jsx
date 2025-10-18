@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Edit, Trash2, Eye, Users, Calendar, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 import './MyJobsPage.css';
 
 export default function MyJobsPage() {
@@ -368,6 +369,8 @@ export default function MyJobsPage() {
           </motion.div>
         </motion.div>
       )}
+
+      <Footer />
     </div>
   );
 }

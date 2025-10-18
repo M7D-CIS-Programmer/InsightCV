@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Building2, Edit2, Save, MapPin, Globe, Users, Mail, Phone, Calendar, Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 import './MyCompanyPage.css';
 
 export default function MyCompanyPage() {
@@ -395,6 +396,8 @@ export default function MyCompanyPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

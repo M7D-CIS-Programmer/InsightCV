@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { Upload, FileText, Brain, TrendingUp, AlertCircle, CheckCircle, Building2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import EmployeeNavbar from '../components/EmployeeNavbar';
+import Footer from '../components/Footer';
 import './UploadCVPage.css';
 
 export default function UploadCVPage() {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const [jobTitle, setJobTitle] = useState('');
+  const [customJobTitle, setCustomJobTitle] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState(null);
 
@@ -20,8 +22,9 @@ export default function UploadCVPage() {
   };
 
   const handleAnalyze = () => {
-    if (!selectedFile || !jobTitle) {
-      alert('Please upload a CV and select a job title');
+    const finalJobTitle = jobTitle === 'custom' ? customJobTitle : jobTitle;
+    if (!selectedFile || !finalJobTitle) {
+      alert('Please upload a CV and enter/select a job title');
       return;
     }
 
@@ -132,23 +135,41 @@ export default function UploadCVPage() {
 
               <div className="job-title-section">
                 <label htmlFor="job-title">Select Your Desired Job Title</label>
-                <select
-                  id="job-title"
-                  value={jobTitle}
-                  onChange={(e) => setJobTitle(e.target.value)}
-                  className="job-title-select"
-                >
-                  <option value="">Choose a job title...</option>
-                  <option value="frontend">Frontend Developer</option>
-                  <option value="backend">Backend Developer</option>
-                  <option value="fullstack">Full Stack Developer</option>
-                  <option value="mobile">Mobile Developer</option>
-                  <option value="devops">DevOps Engineer</option>
-                  <option value="data">Data Scientist</option>
-                  <option value="ml">ML Engineer</option>
-                  <option value="product">Product Manager</option>
-                  <option value="designer">UI/UX Designer</option>
-                </select>
+                <div className="job-title-inputs">
+                  <select
+                    id="job-title"
+                    value={jobTitle}
+                    onChange={(e) => {
+                      setJobTitle(e.target.value);
+                      if (e.target.value !== 'custom') {
+                        setCustomJobTitle('');
+                      }
+                    }}
+                    className="job-title-select"
+                  >
+                    <option value="">Choose a job title...</option>
+                    <option value="frontend">Frontend Developer</option>
+                    <option value="backend">Backend Developer</option>
+                    <option value="fullstack">Full Stack Developer</option>
+                    <option value="mobile">Mobile Developer</option>
+                    <option value="devops">DevOps Engineer</option>
+                    <option value="data">Data Scientist</option>
+                    <option value="ml">ML Engineer</option>
+                    <option value="product">Product Manager</option>
+                    <option value="designer">UI/UX Designer</option>
+                    <option value="custom">Other (Enter manually)</option>
+                  </select>
+                  
+                  {jobTitle === 'custom' && (
+                    <input
+                      type="text"
+                      value={customJobTitle}
+                      onChange={(e) => setCustomJobTitle(e.target.value)}
+                      placeholder="Enter job title..."
+                      className="custom-job-title-input"
+                    />
+                  )}
+                </div>
               </div>
 
               <button
@@ -284,6 +305,8 @@ export default function UploadCVPage() {
           )}
         </motion.div>
       </div>
+
+      <Footer />
     </div>
   );
 }

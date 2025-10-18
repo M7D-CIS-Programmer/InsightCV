@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Search, MapPin, Briefcase, Clock, DollarSign, Filter, Star, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import EmployeeNavbar from '../components/EmployeeNavbar';
+import Footer from '../components/Footer';
 import './JobListingsPage.css';
 
 export default function JobListingsPage() {
@@ -327,6 +328,8 @@ export default function JobListingsPage() {
           )}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
