@@ -70,6 +70,11 @@ function SignupForm() {
     setCompanyStep(true);
   };
 
+  const handleBackToAccountType = () => {
+    setForm(prev => ({ ...prev, accountType: 'candidate' }));
+    setCompanyStep(false);
+  };
+
   return (
     <div className="login-container">
       <div
@@ -92,14 +97,53 @@ function SignupForm() {
             {/* If a company account and not yet continued, ask for company name first */}
             {form.accountType === 'company' && !companyStep ? (
               <>
-                <input
-                  name="companyName"
-                  value={form.companyName}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Company Name"
-                  className="neon-input"
-                />
+                <div style={{ position: 'relative', marginBottom: '20px' }}>
+                  <button
+                    type="button"
+                    onClick={handleBackToAccountType}
+                    className="back-arrow"
+                    style={{ 
+                      position: 'absolute',
+                      top: '-50px', 
+                      left: '10px', 
+                      width: '45px', 
+                      height: '45px', 
+                      fontSize: '28px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(255, 215, 0, 0.15)',
+                      border: '2px solid rgba(255, 215, 0, 0.4)',
+                      borderRadius: '12px',
+                      color: '#FFD700',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      zIndex: 10
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'rgba(255, 215, 0, 0.25)';
+                      e.target.style.borderColor = '#FFD700';
+                      e.target.style.transform = 'scale(1.1)';
+                      e.target.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'rgba(255, 215, 0, 0.15)';
+                      e.target.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+                      e.target.style.transform = 'scale(1)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    &larr;
+                  </button>
+                  <input
+                    name="companyName"
+                    value={form.companyName}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Company Name"
+                    className="neon-input"
+                  />
+                </div>
 
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button type="button" className="sign-in-button" style={{ flex: 1 }} onClick={handleCompanyContinue}>Continue</button>

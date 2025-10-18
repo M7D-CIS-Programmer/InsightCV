@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Star, MapPin, Briefcase, Mail, Phone, Download, Eye, Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import NavbarCompany from '../components/companyHome/NavbarCompany';
 import Footer from '../components/Footer';
 import './SuggestedEmployeesPage.css';
 
@@ -153,20 +154,7 @@ export default function SuggestedEmployeesPage() {
         <div className="suggested-employees-orb-2" />
       </div>
 
-      {/* Navbar */}
-      <nav className="employee-navbar">
-        <div className="employee-navbar-content">
-          <div className="employee-logo" onClick={() => navigate('/company-home')}>InsightCV</div>
-          <div className="employee-nav-links">
-            <a href="/company-home">Home</a>
-            <a href="/company-home/my-company">My Company</a>
-            <a href="/company-home/my-jobs">My Jobs</a>
-            <button className="logout-btn" onClick={() => navigate('/')}>
-              Log Out
-            </button>
-          </div>
-        </div>
-      </nav>
+      <NavbarCompany />
 
       <div className="suggested-employees-content">
         {/* Header */}

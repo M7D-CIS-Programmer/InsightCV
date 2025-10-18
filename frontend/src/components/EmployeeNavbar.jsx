@@ -42,6 +42,12 @@ export default function EmployeeNavbar() {
           >
             AI Practice
           </a>
+          <a 
+            href="/employee-home/rate-us" 
+            className={isActive('/employee-home/rate-us') ? 'active' : ''}
+          >
+            Rate Us
+          </a>
           <button className="logout-btn" onClick={() => navigate('/')}>
             <LogOut size={18} /> Log Out
           </button>

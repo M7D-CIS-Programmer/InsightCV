@@ -31,6 +31,7 @@ export default function NavbarCompany() {
           <Link to="/company-home" className={linkClass('/company-home')}>Home</Link>
           <Link to="/company-home/my-company" className={linkClass('/company-home/my-company')}>My Company</Link>
           <Link to="/company-home/my-jobs" className={linkClass('/company-home/my-jobs')}>My Jobs</Link>
+          <Link to="/company-home/rate-us" className={linkClass('/company-home/rate-us')}>Rate Us</Link>
           <button className="logout-btn-navbar" onClick={() => navigate('/')}>
             Log Out
           </button>

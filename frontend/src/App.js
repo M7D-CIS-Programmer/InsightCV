@@ -23,6 +23,7 @@ import MyCompanyPage from './pages/MyCompanyPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import AboutPage from './pages/AboutPage';
+import RatingPage from './pages/RatingPage';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = React.useState(true);
@@ -56,6 +57,7 @@ function App() {
           <Route path="/company-home/suggested" element={<SuggestedEmployeesPage />} />
           <Route path="/company-home/my-jobs" element={<MyJobsPage />} />
           <Route path="/company-home/my-company" element={<MyCompanyPage />} />
+          <Route path="/company-home/rate-us" element={<RatingPage />} />
           
           <Route path="/employee-home" element={<EmployeeHomePage />} />
           <Route path="/employee-home/upload-cv" element={<UploadCVPage />} />
@@ -63,6 +65,7 @@ function App() {
           <Route path="/employee-home/jobs" element={<JobListingsPage />} />
           <Route path="/employee-home/profile" element={<ProfilePage />} />
           <Route path="/employee-home/ai-practice" element={<AIInterviewPage />} />
+          <Route path="/employee-home/rate-us" element={<RatingPage />} />
 
           <Route path="/" element={
             <>
