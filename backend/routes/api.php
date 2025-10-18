@@ -102,3 +102,5 @@ Route::post('/email/verification-notification', function(Request $request) {
     // هنا ممكن ترسل البريد الإلكتروني للتحقق
     return response()->json(['message' => 'Verification email sent']);
 });
+
+

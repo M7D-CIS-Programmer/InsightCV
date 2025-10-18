@@ -33,12 +33,20 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['nullable', 'in:candidate,company'],
         ]);
+
+        // Determine role: prefer explicit 'role', otherwise map 'company' flag to 'company', else default 'candidate'
+        $role = $request->input('role');
+        if ($role === null) {
+            $role = $request->boolean('company') || $request->input('company') === 'company' ? 'company' : 'candidate';
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $role,
         ]);
 
         event(new Registered($user));

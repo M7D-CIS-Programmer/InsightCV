@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form action="{{ url('/api/register') }}" method="POST">
         @csrf
-
+        @method('POST')
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
