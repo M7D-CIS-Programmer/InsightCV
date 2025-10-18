@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
+import AboutHome from './components/AboutHome';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -11,6 +11,18 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import './App.css';
 import CompanyHomePage from './pages/CompanyHomePage';
+import EmployeeHomePage from './pages/EmployeeHomePage';
+import UploadCVPage from './pages/UploadCVPage';
+import AIInterviewPage from './pages/AIInterviewPage';
+import PostJobPage from './pages/PostJobPage';
+import JobListingsPage from './pages/JobListingsPage';
+import SuggestedEmployeesPage from './pages/SuggestedEmployeesPage';
+import ProfilePage from './pages/ProfilePage';
+import MyJobsPage from './pages/MyJobsPage';
+import MyCompanyPage from './pages/MyCompanyPage';
+import ContactPage from './pages/ContactPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = React.useState(true);
@@ -33,10 +45,24 @@ function App() {
     <Router>
       <div className={`App ${isDarkMode ? 'dark' : 'light'}`}>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
-          <Route path="/company-home/*" element={<CompanyHomePage />} />
+                                                  <Route path="/company-home" element={<CompanyHomePage />} />
+          <Route path="/company-home/post-job" element={<PostJobPage />} />
+          <Route path="/company-home/suggested" element={<SuggestedEmployeesPage />} />
+          <Route path="/company-home/my-jobs" element={<MyJobsPage />} />
+          <Route path="/company-home/my-company" element={<MyCompanyPage />} />
+          
+          <Route path="/employee-home" element={<EmployeeHomePage />} />
+          <Route path="/employee-home/upload-cv" element={<UploadCVPage />} />
+          <Route path="/employee-home/ai-interview" element={<AIInterviewPage />} />
+          <Route path="/employee-home/jobs" element={<JobListingsPage />} />
+          <Route path="/employee-home/profile" element={<ProfilePage />} />
+          <Route path="/employee-home/ai-practice" element={<AIInterviewPage />} />
 
           <Route path="/" element={
             <>
@@ -72,7 +98,7 @@ function App() {
 
               <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
               <Hero />
-              <About />
+              <AboutHome />
               <Features />
               <Testimonials />
               <Footer />

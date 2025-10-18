@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './NavbarCompany.css';
 
 export default function NavbarCompany() {
   const [scrolled, setScrolled] = React.useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -27,10 +28,12 @@ export default function NavbarCompany() {
           <span className="gradient-text">Company Dashboard</span>
         </div>
         <nav className="navbar-nav">
-          <Link to="/company-home/ads" className={linkClass('/company-home/ads')}>Ads</Link>
-          <Link to="/company-home/suggested" className={linkClass('/company-home/suggested')}>Suggested Candidates</Link>
-          <Link to="/company-home/edit-info" className={linkClass('/company-home/edit-info')}>Edit Info</Link>
-          <Link to="/company-home/logout" className={linkClass('/company-home/logout')}>Logout</Link>
+          <Link to="/company-home" className={linkClass('/company-home')}>Home</Link>
+          <Link to="/company-home/my-company" className={linkClass('/company-home/my-company')}>My Company</Link>
+          <Link to="/company-home/my-jobs" className={linkClass('/company-home/my-jobs')}>My Jobs</Link>
+          <button className="logout-btn-navbar" onClick={() => navigate('/')}>
+            Log Out
+          </button>
         </nav>
       </div>
     </header>

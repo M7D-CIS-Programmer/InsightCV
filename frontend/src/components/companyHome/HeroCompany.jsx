@@ -26,11 +26,11 @@ export default function HeroCompany() {
               Manage your job posts, discover top talent, and update your company info — all in one place.
             </motion.p>
             <motion.div variants={fadeUp} className="hero-buttons">
-              <a href="/company-home/ads" className="btn-primary">
-                Add New Job Post
+              <a href="/company-home/post-job" className="btn-primary">
+                Post a Job
               </a>
               <a href="/company-home/suggested" className="btn-secondary">
-                View Suggested Candidates
+                Suggested Employees
               </a>
             </motion.div>
           </motion.div>

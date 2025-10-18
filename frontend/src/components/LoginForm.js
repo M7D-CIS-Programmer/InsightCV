@@ -3,8 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import './LoginForm.css'; // استيراد ملف CSS
 
 function LoginForm() {
-  // حالة لإدارة ما إذا كان النموذج مُتوسعًا ومُظهرًا لحقول الإدخال
   const [isExpanded, setIsExpanded] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleMouseEnter = () => {
@@ -49,10 +50,35 @@ function LoginForm() {
         تظهر فقط عندما isExpanded تكون 'true'
       */}
       <div className="form-content">
-        <input type="text" placeholder="Username" className="neon-input" />
-        <input type="password" placeholder="Password" className="neon-input" />
+        <input 
+          type="email" 
+          placeholder="Email" 
+          className="neon-input" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input 
+          type="password" 
+          placeholder="Password" 
+          className="neon-input" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         
-        <button className="sign-in-button">Sign in</button>
+        <button 
+          className="sign-in-button" 
+          onClick={() => {
+            // Simulate login - in real app, check credentials from backend
+            // For demo: emails ending with @company.com go to company home
+            if (email.includes('@company.com')) {
+              navigate('/company-home');
+            } else {
+              navigate('/employee-home');
+            }
+          }}
+        >
+          Sign in
+        </button>
 
         <div className="form-links">
           <a href="#" className="forgot-link">Forgot Password</a>

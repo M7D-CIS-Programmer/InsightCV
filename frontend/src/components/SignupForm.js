@@ -51,9 +51,15 @@ function SignupForm() {
       return;
     }
 
-    // TODO: replace with real signup API call
+        // TODO: replace with real signup API call
     console.log('Signing up', form);
-    navigate('/login');
+    
+    // Redirect based on account type
+    if (form.accountType === 'company') {
+      navigate('/company-home');
+    } else {
+      navigate('/employee-home');
+    }
   };
 
   const handleCompanyContinue = () => {
