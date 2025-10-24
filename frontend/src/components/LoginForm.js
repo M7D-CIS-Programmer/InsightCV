@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { authAPI } from '../services/api';
 import { saveUser } from '../utils/auth';
 import './LoginForm.css';
+=======
+import './LoginForm.css'; // استيراد ملف CSS
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
 function LoginForm() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetMessage, setResetMessage] = useState('');
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   const navigate = useNavigate();
 
   const handleMouseEnter = () => {
@@ -23,6 +30,7 @@ function LoginForm() {
     setIsExpanded(false);
   };
 
+<<<<<<< HEAD
   const handleLogin = async () => {
     if (!email || !password) {
       setError('Please enter both email and password');
@@ -74,6 +82,8 @@ function LoginForm() {
     }
   };
 
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
   return (
     <div className="login-container">
@@ -108,6 +118,7 @@ function LoginForm() {
         تظهر فقط عندما isExpanded تكون 'true'
       */}
       <div className="form-content">
+<<<<<<< HEAD
         {!showForgotPassword ? (
           <>
             {error && <div style={{ color: '#ff4444', marginBottom: '10px', fontSize: '14px' }}>{error}</div>}
@@ -173,6 +184,42 @@ function LoginForm() {
             </div>
           </>
         )}
+=======
+        <input 
+          type="email" 
+          placeholder="Email" 
+          className="neon-input" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input 
+          type="password" 
+          placeholder="Password" 
+          className="neon-input" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        
+        <button 
+          className="sign-in-button" 
+          onClick={() => {
+            // Simulate login - in real app, check credentials from backend
+            // For demo: emails ending with @company.com go to company home
+            if (email.includes('@company.com')) {
+              navigate('/company-home');
+            } else {
+              navigate('/employee-home');
+            }
+          }}
+        >
+          Sign in
+        </button>
+
+        <div className="form-links">
+          <a href="#" className="forgot-link">Forgot Password</a>
+          <Link to="/signup" className="sign-up-link">Sign up</Link>
+        </div>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       </div>
       </div>
     </div>

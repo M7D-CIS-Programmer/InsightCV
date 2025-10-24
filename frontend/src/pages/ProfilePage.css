@@ -527,6 +527,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+<<<<<<< HEAD
 /* Skills Editor */
 .skills-editor {
   display: flex;
@@ -804,3 +805,5 @@ ded CVs List Styles */
     flex: 1;
   }
 }
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3

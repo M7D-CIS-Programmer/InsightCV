@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, ArrowLeft, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { jobAPI } from '../services/api';
 import { getUser } from '../utils/auth';
+=======
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, ArrowLeft, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import NavbarCompany from '../components/companyHome/NavbarCompany';
 import Footer from '../components/Footer';
 import './PostJobPage.css';
@@ -14,6 +21,7 @@ export default function PostJobPage() {
     title: '',
     location: '',
     type: 'full-time',
+<<<<<<< HEAD
     experience_level: 'mid',
     skills: [],
     description: '',
@@ -49,6 +57,14 @@ export default function PostJobPage() {
       console.error('Failed to check profile:', err);
     }
   };
+=======
+    experience: '',
+    skills: [],
+    description: '',
+    requirements: ''
+  });
+  const [skillInput, setSkillInput] = useState('');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,6 +88,7 @@ export default function PostJobPage() {
     }));
   };
 
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -111,6 +128,13 @@ export default function PostJobPage() {
     } finally {
       setLoading(false);
     }
+=======
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Job Posted:', formData);
+    alert('Job posted successfully!');
+    navigate('/company-home');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   return (
@@ -179,7 +203,11 @@ export default function PostJobPage() {
 
               <div className="form-group">
                 <label>Experience Level *</label>
+<<<<<<< HEAD
                 <select name="experience_level" value={formData.experience_level} onChange={handleChange} required>
+=======
+                <select name="experience" value={formData.experience} onChange={handleChange} required>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   <option value="">Select level...</option>
                   <option value="entry">Entry Level (0-2 years)</option>
                   <option value="mid">Mid Level (2-5 years)</option>
@@ -236,14 +264,22 @@ export default function PostJobPage() {
               />
             </div>
 
+<<<<<<< HEAD
             {error && <div className="error-message" style={{color: '#ff4444', marginBottom: '20px', textAlign: 'center'}}>{error}</div>}
 
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             <div className="form-actions">
               <button type="button" onClick={() => navigate('/company-home')} className="cancel-btn">
                 Cancel
               </button>
+<<<<<<< HEAD
               <button type="submit" className="submit-btn" disabled={loading}>
                 <Briefcase size={20} /> {loading ? 'Posting...' : 'Post Job'}
+=======
+              <button type="submit" className="submit-btn">
+                <Briefcase size={20} /> Post Job
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </button>
             </div>
           </form>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { authAPI } from '../services/api';
 import { saveUser } from '../utils/auth';
 import './LoginForm.css';
@@ -11,6 +12,15 @@ function SignupForm() {
   const [companyStep, setCompanyStep] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+=======
+import './LoginForm.css';
+
+function SignupForm() {
+  const [isExpanded, setIsExpanded] = useState(false); // collapsed by default, expand on hover like LoginForm
+  const [form, setForm] = useState({ fullName: '', companyName: '', email: '', password: '', confirmPassword: '', accountType: 'candidate' });
+  const navigate = useNavigate();
+  const [companyStep, setCompanyStep] = useState(false);
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
   const handleMouseEnter = () => setIsExpanded(true);
   const handleMouseLeave = () => setIsExpanded(false);
@@ -19,11 +29,18 @@ function SignupForm() {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     if (name === 'accountType') {
+<<<<<<< HEAD
       if (value === 'candidate') setCompanyStep(false);
+=======
+      // if switching to candidate, reset company step
+      if (value === 'candidate') setCompanyStep(false);
+      // if switching to company, clear companyName so user types fresh
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       if (value === 'company') setForm((prev) => ({ ...prev, companyName: '' }));
     }
   };
 
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -31,25 +48,46 @@ function SignupForm() {
     // Validation
     if (form.accountType === 'company' && !companyStep) {
       setError('Please enter your company name and press Continue.');
+=======
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // minimal client-side validation
+    // if company flow and not yet continued
+    if (form.accountType === 'company' && !companyStep) {
+      alert('Please enter your company name and press Continue.');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       return;
     }
 
     if (form.accountType === 'company' && (!form.companyName || form.companyName.trim() === '')) {
+<<<<<<< HEAD
       setError('Please enter your company name.');
+=======
+      alert('Please enter your company name.');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       return;
     }
 
     if (form.accountType === 'candidate' && !form.fullName) {
+<<<<<<< HEAD
       setError('Please enter your full name.');
+=======
+      alert('Please enter your full name.');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       return;
     }
 
     if (!form.email || !form.password) {
+<<<<<<< HEAD
       setError('Please fill email and password.');
+=======
+      alert('Please fill email and password.');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       return;
     }
 
     if (form.password !== form.confirmPassword) {
+<<<<<<< HEAD
       setError('Passwords do not match.');
       return;
     }
@@ -81,22 +119,46 @@ function SignupForm() {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
+=======
+      alert('Passwords do not match.');
+      return;
+    }
+
+        // TODO: replace with real signup API call
+    console.log('Signing up', form);
+    
+    // Redirect based on account type
+    if (form.accountType === 'company') {
+      navigate('/company-home');
+    } else {
+      navigate('/employee-home');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
     }
   };
 
   const handleCompanyContinue = () => {
     if (!form.companyName || form.companyName.trim() === '') {
+<<<<<<< HEAD
       setError('Please enter your company name to continue.');
       return;
     }
     setCompanyStep(true);
     setError('');
+=======
+      alert('Please enter your company name to continue.');
+      return;
+    }
+    setCompanyStep(true);
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   const handleBackToAccountType = () => {
     setForm(prev => ({ ...prev, accountType: 'candidate' }));
     setCompanyStep(false);
+<<<<<<< HEAD
     setError('');
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   return (
@@ -118,8 +180,11 @@ function SignupForm() {
 
         <div className="form-content">
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+<<<<<<< HEAD
             {error && <div style={{ color: '#ff4444', marginBottom: '10px', fontSize: '14px' }}>{error}</div>}
             
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             {/* If a company account and not yet continued, ask for company name first */}
             {form.accountType === 'company' && !companyStep ? (
               <>
@@ -242,9 +307,13 @@ function SignupForm() {
                     </label>
                 </div>
 
+<<<<<<< HEAD
                 <button className="sign-in-button" style={{ marginTop: 16 }} type="submit" disabled={loading}>
                   {loading ? 'Creating account...' : 'Create account'}
                 </button>
+=======
+                <button className="sign-in-button" style={{ marginTop: 16 }} type="submit">Create account</button>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 <div className="form-links" style={{ marginTop: 6, justifyContent: 'center' }}>
                   <Link to="/login" className="sign-up-link">Already have an account? Sign in here</Link>
                 </div>

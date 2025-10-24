@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import NotificationBell from '../NotificationBell';
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import './NavbarCompany.css';
 
 export default function NavbarCompany() {
@@ -33,7 +36,10 @@ export default function NavbarCompany() {
           <Link to="/company-home/my-company" className={linkClass('/company-home/my-company')}>My Company</Link>
           <Link to="/company-home/my-jobs" className={linkClass('/company-home/my-jobs')}>My Jobs</Link>
           <Link to="/company-home/rate-us" className={linkClass('/company-home/rate-us')}>Rate Us</Link>
+<<<<<<< HEAD
           <NotificationBell />
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           <button className="logout-btn-navbar" onClick={() => navigate('/')}>
             Log Out
           </button>

@@ -1,19 +1,26 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { Star, Quote } from 'lucide-react'
+<<<<<<< HEAD
 import { ratingAPI } from '../services/api'
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import './Testimonials.css'
 
 const Testimonials = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [currentIndex, setCurrentIndex] = useState(0)
+<<<<<<< HEAD
   const [testimonials, setTestimonials] = useState([])
   const [loading, setLoading] = useState(true)
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const orb1Y = useTransform(scrollYProgress, [0, 1], [0, -40])
   const orb2Y = useTransform(scrollYProgress, [0, 1], [0, 40])
 
+<<<<<<< HEAD
   // Fetch real testimonials from API
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -74,6 +81,62 @@ const Testimonials = () => {
       }, 5000)
       return () => clearInterval(interval)
     }
+=======
+  const testimonials = [
+    {
+      name: 'Sarah Johnson',
+      role: 'Software Engineer',
+      company: 'Tech Innovations Inc.',
+      avatar: 'https://i.pravatar.cc/150?img=1',
+      content:
+        'InsightCV completely transformed my resume! The intelligent analytics helped me land interviews at top tech companies. The skills gap analysis was incredibly accurate.',
+      rating: 5,
+    },
+    {
+      name: 'Michael Chen',
+      role: 'Product Manager',
+      company: 'Innovation Labs',
+      avatar: 'https://i.pravatar.cc/150?img=2',
+      content:
+        'I was skeptical at first, but the interview simulation feature prepared me perfectly. I got my dream job within 3 weeks of using InsightCV!',
+      rating: 5,
+    },
+    {
+      name: 'Emily Rodriguez',
+      role: 'UX Designer',
+      company: 'Creative Studios',
+      avatar: 'https://i.pravatar.cc/150?img=3',
+      content:
+        'The job matching suggestions were spot on. InsightCV understood my career goals better than I did! Highly recommend it to anyone job hunting.',
+      rating: 5,
+    },
+    {
+      name: 'David Kim',
+      role: 'Data Scientist',
+      company: 'Analytics Corp',
+      avatar: 'https://i.pravatar.cc/150?img=4',
+      content:
+        'Amazing tool! The AI-powered feedback helped me optimize my resume for ATS systems. My response rate increased by 300%!',
+      rating: 5,
+    },
+    {
+      name: 'Lisa Thompson',
+      role: 'Marketing Director',
+      company: 'Brand Solutions',
+      avatar: 'https://i.pravatar.cc/150?img=5',
+      content:
+        'InsightCV gave me the confidence in my applications. The detailed insights and recommendations were exactly what I needed to stand out.',
+      rating: 5,
+    },
+  ]
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(interval)
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   }, [testimonials.length])
 
   return (
@@ -115,12 +178,15 @@ const Testimonials = () => {
 
         {/* Testimonials Carousel */}
         <div className="testimonials-carousel">
+<<<<<<< HEAD
           {loading ? (
             <div style={{ textAlign: 'center', padding: '40px', color: '#FFD700' }}>
               Loading testimonials...
             </div>
           ) : (
             <>
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           {/* Main Testimonial Display */}
           <div className="testimonials-display">
             {testimonials.map((testimonial, index) => (
@@ -215,7 +281,10 @@ const Testimonials = () => {
           </div>
 
           {/* Side Previews - Desktop Only */}
+<<<<<<< HEAD
           {testimonials.length > 1 && (
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           <div className="testimonials-previews">
             {/* Previous Card */}
             <motion.div
@@ -257,9 +326,12 @@ const Testimonials = () => {
               </div>
             </motion.div>
           </div>
+<<<<<<< HEAD
           )}
           </>
           )}
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
         </div>
       </div>
     </section>

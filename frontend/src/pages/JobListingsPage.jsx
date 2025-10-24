@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, MapPin, Briefcase, Clock, DollarSign, Filter, Star, Send, Eye, X, Mail, Phone, Globe, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { jobAPI } from '../services/api';
 import { getUser } from '../utils/auth';
+=======
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Search, MapPin, Briefcase, Clock, DollarSign, Filter, Star, Send } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import EmployeeNavbar from '../components/EmployeeNavbar';
 import Footer from '../components/Footer';
 import './JobListingsPage.css';
@@ -14,6 +21,7 @@ export default function JobListingsPage() {
   const [locationFilter, setLocationFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
+<<<<<<< HEAD
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -95,6 +103,105 @@ export default function JobListingsPage() {
     
     setSavedJobs(newSavedJobs);
     localStorage.setItem('savedJobs', JSON.stringify(newSavedJobs));
+=======
+
+  // Mock job data
+  const jobs = [
+    {
+      id: 1,
+      title: 'Senior Frontend Developer',
+      company: 'TechCorp Solutions',
+      location: 'New York, NY',
+      type: 'Full Time',
+      salary: '$120k - $160k',
+      posted: '2 days ago',
+      match: 95,
+      skills: ['React', 'TypeScript', 'Node.js', 'CSS3'],
+      description: 'We are looking for an experienced frontend developer to join our growing team.',
+      applicants: 23,
+      saved: false
+    },
+    {
+      id: 2,
+      title: 'Full Stack Engineer',
+      company: 'InnovateSoft',
+      location: 'San Francisco, CA',
+      type: 'Full Time',
+      salary: '$130k - $180k',
+      posted: '1 week ago',
+      match: 88,
+      skills: ['React', 'Python', 'AWS', 'MongoDB'],
+      description: 'Join our team to build scalable web applications for millions of users.',
+      applicants: 45,
+      saved: true
+    },
+    {
+      id: 3,
+      title: 'Backend Developer',
+      company: 'Digital Dynamics',
+      location: 'Remote',
+      type: 'Full Time',
+      salary: '$110k - $150k',
+      posted: '3 days ago',
+      match: 82,
+      skills: ['Node.js', 'PostgreSQL', 'Docker', 'GraphQL'],
+      description: 'Looking for a backend specialist to design and implement robust APIs.',
+      applicants: 31,
+      saved: false
+    },
+    {
+      id: 4,
+      title: 'UI/UX Designer',
+      company: 'Creative Labs',
+      location: 'Austin, TX',
+      type: 'Contract',
+      salary: '$90k - $120k',
+      posted: '5 days ago',
+      match: 75,
+      skills: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
+      description: 'Design beautiful and intuitive user experiences for our products.',
+      applicants: 18,
+      saved: false
+    },
+    {
+      id: 5,
+      title: 'DevOps Engineer',
+      company: 'CloudFirst Inc.',
+      location: 'Seattle, WA',
+      type: 'Full Time',
+      salary: '$140k - $190k',
+      posted: '1 day ago',
+      match: 91,
+      skills: ['AWS', 'Kubernetes', 'Terraform', 'CI/CD'],
+      description: 'Help us build and maintain our cloud infrastructure.',
+      applicants: 12,
+      saved: true
+    },
+    {
+      id: 6,
+      title: 'Mobile Developer (React Native)',
+      company: 'AppWorks',
+      location: 'Boston, MA',
+      type: 'Full Time',
+      salary: '$115k - $155k',
+      posted: '4 days ago',
+      match: 79,
+      skills: ['React Native', 'JavaScript', 'iOS', 'Android'],
+      description: 'Build cross-platform mobile apps used by thousands daily.',
+      applicants: 27,
+      saved: false
+    }
+  ];
+
+  const [savedJobs, setSavedJobs] = useState(jobs.filter(j => j.saved).map(j => j.id));
+
+  const toggleSave = (jobId) => {
+    setSavedJobs(prev => 
+      prev.includes(jobId) 
+        ? prev.filter(id => id !== jobId)
+        : [...prev, jobId]
+    );
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   const filteredJobs = jobs.filter(job => {
@@ -107,6 +214,7 @@ export default function JobListingsPage() {
     return matchesSearch && matchesLocation && matchesType;
   });
 
+<<<<<<< HEAD
   const [selectedJob, setSelectedJob] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
   const [contactMessage, setContactMessage] = useState('');
@@ -158,6 +266,10 @@ export default function JobListingsPage() {
     alert(`Message sent to ${selectedJob.company}!\n\nYour message: "${contactMessage}"`);
     setShowContactModal(false);
     setContactMessage('');
+=======
+  const handleApply = (job) => {
+    alert(`Application submitted for ${job.title} at ${job.company}!`);
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   return (
@@ -277,11 +389,15 @@ export default function JobListingsPage() {
 
         {/* Job Cards */}
         <div className="jobs-grid">
+<<<<<<< HEAD
           {loading ? (
             <div style={{ textAlign: 'center', padding: '40px', color: '#FFD700', gridColumn: '1 / -1' }}>
               Loading jobs...
             </div>
           ) : filteredJobs.length === 0 ? (
+=======
+          {filteredJobs.length === 0 ? (
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             <div className="no-results">
               <Briefcase size={64} />
               <h3>No jobs found</h3>
@@ -355,6 +471,7 @@ export default function JobListingsPage() {
                   </div>
                 </div>
 
+<<<<<<< HEAD
                 <div className="job-actions">
                   <button 
                     className="view-details-btn"
@@ -372,12 +489,22 @@ export default function JobListingsPage() {
                     {applying === job.id ? 'Applying...' : 'Apply Now'}
                   </button>
                 </div>
+=======
+                <button 
+                  className="apply-btn-job"
+                  onClick={() => handleApply(job)}
+                >
+                  <Send size={18} />
+                  Apply Now
+                </button>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </motion.div>
             ))
           )}
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Job Details Modal */}
       {selectedJob && !showContactModal && (
         <motion.div
@@ -536,6 +663,8 @@ export default function JobListingsPage() {
         </motion.div>
       )}
 
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       <Footer />
     </div>
   );

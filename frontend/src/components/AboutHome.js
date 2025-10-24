@@ -82,8 +82,13 @@ const AboutHome = () => {
 
           {/* Main Description */}
           <motion.p className="about-home-description" variants={itemVariants}>
+<<<<<<< HEAD
             InsightCV bridges the gap between companies and candidates by analyzing skills,
             matching opportunities, and offering data-driven insights that make hiring decisions
+=======
+            InsightCV bridges the gap between companies and candidates by analyzing skills, 
+            matching opportunities, and offering data-driven insights that make hiring decisions 
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             smarter and more transparent.
           </motion.p>
 
@@ -94,7 +99,11 @@ const AboutHome = () => {
                 key={index}
                 className="about-home-feature"
                 variants={itemVariants}
+<<<<<<< HEAD
                 whileHover={{
+=======
+                whileHover={{ 
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   scale: 1.05,
                   y: -10,
                   boxShadow: "0 20px 40px rgba(255, 215, 0, 0.2)"
@@ -104,7 +113,11 @@ const AboutHome = () => {
                 <motion.div
                   className="feature-icon"
                   variants={iconVariants}
+<<<<<<< HEAD
                   whileHover={{
+=======
+                  whileHover={{ 
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                     scale: 1.2,
                     rotate: 360,
                     transition: { duration: 0.6 }
@@ -114,7 +127,11 @@ const AboutHome = () => {
                 </motion.div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 {/* Animated background glow */}
                 <motion.div
                   className="feature-glow"
@@ -146,11 +163,19 @@ const AboutHome = () => {
                   animate={isInView ? { scale: [0, 1.2, 1] } : { scale: 0 }}
                   transition={{ delay: 1, duration: 0.8, ease: "backOut" }}
                 >
+<<<<<<< HEAD
                   2
                 </motion.div>
                 <div className="stat-label">Active Users</div>
               </motion.div>
 
+=======
+                  10K+
+                </motion.div>
+                <div className="stat-label">Active Users</div>
+              </motion.div>
+              
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               <motion.div
                 className="stat-item"
                 whileHover={{ scale: 1.1 }}
@@ -161,11 +186,19 @@ const AboutHome = () => {
                   animate={isInView ? { scale: [0, 1.2, 1] } : { scale: 0 }}
                   transition={{ delay: 1.2, duration: 0.8, ease: "backOut" }}
                 >
+<<<<<<< HEAD
                   1
                 </motion.div>
                 <div className="stat-label">Companies</div>
               </motion.div>
 
+=======
+                  500+
+                </motion.div>
+                <div className="stat-label">Companies</div>
+              </motion.div>
+              
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               <motion.div
                 className="stat-item"
                 whileHover={{ scale: 1.1 }}
@@ -180,7 +213,11 @@ const AboutHome = () => {
                 </motion.div>
                 <div className="stat-label">Match Accuracy</div>
               </motion.div>
+<<<<<<< HEAD
 
+=======
+              
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               <motion.div
                 className="stat-item"
                 whileHover={{ scale: 1.1 }}

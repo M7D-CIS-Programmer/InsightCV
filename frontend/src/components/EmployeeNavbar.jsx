@@ -1,7 +1,10 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
+<<<<<<< HEAD
 import NotificationBell from './NotificationBell';
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import './EmployeeNavbar.css';
 
 export default function EmployeeNavbar() {
@@ -49,7 +52,10 @@ export default function EmployeeNavbar() {
           >
             Rate Us
           </a>
+<<<<<<< HEAD
           <NotificationBell />
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           <button className="logout-btn" onClick={() => navigate('/')}>
             <LogOut size={18} /> Log Out
           </button>

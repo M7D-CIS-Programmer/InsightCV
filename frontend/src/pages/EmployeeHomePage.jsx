@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { profileAPI, candidateAPI } from '../services/api';
 import { getUser } from '../utils/auth';
+=======
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Upload, MessageSquare } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import EmployeeNavbar from '../components/EmployeeNavbar';
 import Footer from '../components/Footer';
 import './EmployeeHomePage.css';
@@ -20,6 +27,7 @@ const fadeUp = {
 
 export default function EmployeeHomePage() {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [user, setUser] = useState(null);
   const [statistics, setStatistics] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,6 +67,8 @@ export default function EmployeeHomePage() {
     
     fetchData();
   }, [navigate]);
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
   return (
     <div className="employee-home-page">
@@ -113,6 +123,7 @@ export default function EmployeeHomePage() {
                 Your intelligent career assistant that helps you prepare for your dream job!<br/>
                 Upload your CV, chat with our AI assistant, and let us guide you toward success.
               </p>
+<<<<<<< HEAD
               
               {/* Profile Completion Notice */}
               {profileCompletion && !profileCompletion.is_complete && (
@@ -160,6 +171,8 @@ export default function EmployeeHomePage() {
                   </button>
                 </motion.div>
               )}
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             </motion.div>
 
             {/* Right Side - Phone */}
@@ -233,6 +246,7 @@ export default function EmployeeHomePage() {
 
           {/* Quick Stats */}
           <motion.div variants={fadeUp} className="employee-stats">
+<<<<<<< HEAD
             {loading ? (
               <div style={{ textAlign: 'center', color: '#FFD700', width: '100%' }}>
                 Loading statistics...
@@ -268,6 +282,20 @@ export default function EmployeeHomePage() {
                 </div>
               </>
             )}
+=======
+            <div className="stat-item">
+              <div className="stat-number">0</div>
+              <div className="stat-label">CVs Analyzed</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">0</div>
+              <div className="stat-label">Practice Sessions</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">0</div>
+              <div className="stat-label">Points Earned</div>
+            </div>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           </motion.div>
         </div>
       </motion.section>

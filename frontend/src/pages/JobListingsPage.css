@@ -442,6 +442,7 @@
     padding: 1.5rem;
   }
 }
+<<<<<<< HEAD
 /* Job Actions */
 .job-actions {
   display: flex;
@@ -798,3 +799,5 @@
     flex-direction: column;
   }
 }
+=======
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3

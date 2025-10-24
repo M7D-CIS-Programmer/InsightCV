@@ -1,15 +1,23 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Edit, Trash2, Eye, Users, Calendar, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { jobAPI } from '../services/api';
 import { getUser } from '../utils/auth';
+=======
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, Edit, Trash2, Eye, Users, Calendar, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import NavbarCompany from '../components/companyHome/NavbarCompany';
 import Footer from '../components/Footer';
 import './MyJobsPage.css';
 
 export default function MyJobsPage() {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [filter, setFilter] = useState('all');
@@ -59,10 +67,77 @@ export default function MyJobsPage() {
       alert(`Job status updated to ${newStatus}!`);
     } catch (error) {
       alert('Failed to update status: ' + error.message);
+=======
+
+  // Mock job postings data
+  const [jobs, setJobs] = useState([
+    {
+      id: 1,
+      title: 'Senior Frontend Developer',
+      location: 'New York, NY',
+      type: 'Full Time',
+      posted: '2 days ago',
+      applicants: 23,
+      status: 'Active',
+      skills: ['React', 'TypeScript', 'Node.js', 'CSS3'],
+      description: 'We are looking for an experienced frontend developer...',
+      salary: '$120k - $160k',
+      experience: 'Senior Level (5+ years)'
+    },
+    {
+      id: 2,
+      title: 'Backend Developer',
+      location: 'Remote',
+      type: 'Full Time',
+      posted: '1 week ago',
+      applicants: 15,
+      status: 'Active',
+      skills: ['Node.js', 'PostgreSQL', 'Docker', 'GraphQL'],
+      description: 'Looking for a backend specialist to design robust APIs...',
+      salary: '$110k - $150k',
+      experience: 'Mid Level (2-5 years)'
+    },
+    {
+      id: 3,
+      title: 'Product Manager',
+      location: 'San Francisco, CA',
+      type: 'Full Time',
+      posted: '3 weeks ago',
+      applicants: 42,
+      status: 'Closed',
+      skills: ['Product Strategy', 'Agile', 'Data Analysis', 'Leadership'],
+      description: 'Lead product development and strategy...',
+      salary: '$140k - $180k',
+      experience: 'Senior Level (5+ years)'
+    },
+    {
+      id: 4,
+      title: 'UI/UX Designer',
+      location: 'Boston, MA',
+      type: 'Contract',
+      posted: '5 days ago',
+      applicants: 8,
+      status: 'Active',
+      skills: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
+      description: 'Design beautiful user experiences...',
+      salary: '$90k - $120k',
+      experience: 'Mid Level (2-5 years)'
+    }
+  ]);
+
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [filter, setFilter] = useState('all');
+
+  const handleDelete = (jobId) => {
+    if (window.confirm('Are you sure you want to delete this job posting?')) {
+      setJobs(jobs.filter(job => job.id !== jobId));
+      alert('Job deleted successfully!');
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
     }
   };
 
   const handleEdit = (job) => {
+<<<<<<< HEAD
     alert(`Edit functionality coming soon for: ${job.title}`);
   };
 
@@ -70,11 +145,27 @@ export default function MyJobsPage() {
     const job = jobs.find(j => j.id === jobId);
     const newStatus = job.status === 'active' ? 'closed' : 'active';
     await handleStatusChange(jobId, newStatus);
+=======
+    alert(`Edit job: ${job.title}`);
+    // In real app, navigate to edit page
+  };
+
+  const handleToggleStatus = (jobId) => {
+    setJobs(jobs.map(job => 
+      job.id === jobId 
+        ? { ...job, status: job.status === 'Active' ? 'Closed' : 'Active' }
+        : job
+    ));
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   const filteredJobs = jobs.filter(job => {
     if (filter === 'all') return true;
+<<<<<<< HEAD
     return job.status === filter;
+=======
+    return job.status.toLowerCase() === filter.toLowerCase();
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   });
 
   return (
@@ -121,6 +212,7 @@ export default function MyJobsPage() {
             <div className="overview-label">Total Jobs</div>
           </div>
           <div className="overview-card">
+<<<<<<< HEAD
             <div className="overview-number">{jobs.filter(j => j.status === 'active').length}</div>
             <div className="overview-label">Active</div>
           </div>
@@ -130,6 +222,17 @@ export default function MyJobsPage() {
           </div>
           <div className="overview-card">
             <div className="overview-number">{jobs.filter(j => j.status === 'closed').length}</div>
+=======
+            <div className="overview-number">{jobs.filter(j => j.status === 'Active').length}</div>
+            <div className="overview-label">Active</div>
+          </div>
+          <div className="overview-card">
+            <div className="overview-number">{jobs.reduce((acc, j) => acc + j.applicants, 0)}</div>
+            <div className="overview-label">Total Applicants</div>
+          </div>
+          <div className="overview-card">
+            <div className="overview-number">{jobs.filter(j => j.status === 'Closed').length}</div>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             <div className="overview-label">Closed</div>
           </div>
         </motion.div>
@@ -151,13 +254,21 @@ export default function MyJobsPage() {
             className={`filter-btn ${filter === 'active' ? 'active' : ''}`}
             onClick={() => setFilter('active')}
           >
+<<<<<<< HEAD
             Active ({jobs.filter(j => j.status === 'active').length})
+=======
+            Active ({jobs.filter(j => j.status === 'Active').length})
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           </button>
           <button 
             className={`filter-btn ${filter === 'closed' ? 'active' : ''}`}
             onClick={() => setFilter('closed')}
           >
+<<<<<<< HEAD
             Closed ({jobs.filter(j => j.status === 'closed').length})
+=======
+            Closed ({jobs.filter(j => j.status === 'Closed').length})
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           </button>
         </motion.div>
 
@@ -206,6 +317,7 @@ export default function MyJobsPage() {
               <div className="job-item-meta">
                 <span className="meta-badge">
                   <MapPin size={14} />
+<<<<<<< HEAD
                   {job.location || 'Not specified'}
                 </span>
                 <span className="meta-badge">
@@ -257,6 +369,40 @@ export default function MyJobsPage() {
                     {job.status === 'active' ? 'Close Job' : 'Reopen Job'}
                   </button>
                 </div>
+=======
+                  {job.location}
+                </span>
+                <span className="meta-badge">
+                  <Briefcase size={14} />
+                  {job.type}
+                </span>
+                <span className="meta-badge">
+                  <Calendar size={14} />
+                  {job.posted}
+                </span>
+                <span className="meta-badge highlight">
+                  <Users size={14} />
+                  {job.applicants} applicants
+                </span>
+              </div>
+
+              <p className="job-item-description">{job.description}</p>
+
+              <div className="job-item-skills">
+                {job.skills.slice(0, 5).map((skill, idx) => (
+                  <span key={idx} className="skill-tag-small">{skill}</span>
+                ))}
+              </div>
+
+              <div className="job-item-footer">
+                <div className="job-salary-info">{job.salary}</div>
+                <button 
+                  className={`toggle-status-btn ${job.status.toLowerCase()}`}
+                  onClick={() => handleToggleStatus(job.id)}
+                >
+                  {job.status === 'Active' ? 'Close Job' : 'Reopen Job'}
+                </button>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </div>
             </motion.div>
           ))}
@@ -304,6 +450,7 @@ export default function MyJobsPage() {
               <div className="modal-info-row">
                 <div className="modal-info-item">
                   <MapPin size={18} />
+<<<<<<< HEAD
                   <span>{selectedJob.location || 'Not specified'}</span>
                 </div>
                 <div className="modal-info-item">
@@ -313,11 +460,23 @@ export default function MyJobsPage() {
                 <div className="modal-info-item">
                   <Users size={18} />
                   <span>{selectedJob.applicants_count || 0} applicants</span>
+=======
+                  <span>{selectedJob.location}</span>
+                </div>
+                <div className="modal-info-item">
+                  <Briefcase size={18} />
+                  <span>{selectedJob.type}</span>
+                </div>
+                <div className="modal-info-item">
+                  <Users size={18} />
+                  <span>{selectedJob.applicants} applicants</span>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 </div>
               </div>
 
               <div className="modal-section">
                 <h4>Description</h4>
+<<<<<<< HEAD
                 <p>{selectedJob.description || 'No description provided'}</p>
               </div>
 
@@ -340,21 +499,40 @@ export default function MyJobsPage() {
                   ) : (
                     <p>No skills specified</p>
                   )}
+=======
+                <p>{selectedJob.description}</p>
+              </div>
+
+              <div className="modal-section">
+                <h4>Required Skills</h4>
+                <div className="modal-skills">
+                  {selectedJob.skills.map((skill, idx) => (
+                    <span key={idx} className="skill-tag-modal">{skill}</span>
+                  ))}
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 </div>
               </div>
 
               <div className="modal-section">
                 <h4>Compensation</h4>
+<<<<<<< HEAD
                 <p>
                   {selectedJob.salary_min && selectedJob.salary_max 
                     ? `$${(selectedJob.salary_min/1000).toFixed(0)}k - $${(selectedJob.salary_max/1000).toFixed(0)}k per year`
                     : 'Salary not specified'}
                 </p>
+=======
+                <p>{selectedJob.salary}</p>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </div>
 
               <div className="modal-section">
                 <h4>Experience Level</h4>
+<<<<<<< HEAD
                 <p>{selectedJob.experience_level || 'Not specified'}</p>
+=======
+                <p>{selectedJob.experience}</p>
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </div>
             </div>
 
@@ -368,6 +546,7 @@ export default function MyJobsPage() {
               </button>
               <button 
                 className="modal-action-btn primary"
+<<<<<<< HEAD
                 onClick={() => {
                   setSelectedJob(null);
                   navigate(`/company-home/job-applicants/${selectedJob.id}`);
@@ -375,6 +554,12 @@ export default function MyJobsPage() {
               >
                 <Users size={18} />
                 View Applicants ({selectedJob.applicants_count || 0})
+=======
+                onClick={() => alert('View applicants feature coming soon!')}
+              >
+                <Users size={18} />
+                View Applicants
+>>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </button>
             </div>
           </motion.div>
