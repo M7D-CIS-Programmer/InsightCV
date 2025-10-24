@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, FileText, Brain, TrendingUp, AlertCircle, CheckCircle, Building2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cvAPI } from '../services/api';
 import { getUser } from '../utils/auth';
-=======
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Upload, FileText, Brain, TrendingUp, AlertCircle, CheckCircle, Building2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import EmployeeNavbar from '../components/EmployeeNavbar';
 import Footer from '../components/Footer';
 import './UploadCVPage.css';
@@ -22,7 +15,6 @@ export default function UploadCVPage() {
   const [customJobTitle, setCustomJobTitle] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState(null);
-<<<<<<< HEAD
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
 
@@ -34,14 +26,11 @@ export default function UploadCVPage() {
       setUser(currentUser);
     }
   }, [navigate]);
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-<<<<<<< HEAD
       setError('');
     }
   };
@@ -56,20 +45,10 @@ export default function UploadCVPage() {
     if (!user) {
       setError('Please login to continue');
       navigate('/login');
-=======
-    }
-  };
-
-  const handleAnalyze = () => {
-    const finalJobTitle = jobTitle === 'custom' ? customJobTitle : jobTitle;
-    if (!selectedFile || !finalJobTitle) {
-      alert('Please upload a CV and enter/select a job title');
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       return;
     }
 
     setAnalyzing(true);
-<<<<<<< HEAD
     setError('');
 
     try {
@@ -93,45 +72,6 @@ export default function UploadCVPage() {
     } finally {
       setAnalyzing(false);
     }
-=======
-
-    // Simulate AI analysis
-    setTimeout(() => {
-      setAnalysis({
-        strengths: [
-          'Strong technical skills in React and JavaScript',
-          'Excellent communication abilities',
-          'Proven leadership experience',
-          'Good educational background'
-        ],
-        weaknesses: [
-          'Limited experience with backend technologies',
-          'No cloud computing certifications',
-          'Could improve data analysis skills'
-        ],
-        missingSkills: [
-          'Node.js',
-          'TypeScript',
-          'AWS/Azure',
-          'Docker & Kubernetes'
-        ],
-        suggestions: [
-          'Consider taking an online course in Node.js development',
-          'Get AWS Certified Solutions Architect certification',
-          'Build projects showcasing full-stack capabilities',
-          'Add more quantifiable achievements to your CV'
-        ],
-        matchedCompanies: [
-          { name: 'TechCorp Solutions', match: 92, location: 'New York' },
-          { name: 'InnovateSoft', match: 88, location: 'San Francisco' },
-          { name: 'Digital Dynamics', match: 85, location: 'Boston' },
-          { name: 'CloudFirst Inc.', match: 82, location: 'Seattle' }
-        ],
-        overallScore: 78
-      });
-      setAnalyzing(false);
-    }, 3000);
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   return (
@@ -184,11 +124,8 @@ export default function UploadCVPage() {
           {/* Upload Section */}
           {!analysis && (
             <div className="upload-section">
-<<<<<<< HEAD
               {error && <div style={{ color: '#ff4444', marginBottom: '20px', padding: '10px', background: 'rgba(255,68,68,0.1)', borderRadius: '8px' }}>{error}</div>}
               
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               <div className="upload-area">
                 <input
                   type="file"

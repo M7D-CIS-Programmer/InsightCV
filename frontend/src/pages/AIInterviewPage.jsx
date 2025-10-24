@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Mic, Send, ArrowLeft, Award, TrendingUp, Target, CheckCircle, Upload } from 'lucide-react';
@@ -8,26 +7,16 @@ import { getUser } from '../utils/auth';
 import { speak, testArabicVoice } from '../utils/arabicTTS';
 import { AudioRecorder, transcribeAudio } from '../utils/voiceTranscription';
 import { SpeechRecognizer } from '../utils/speechRecognition';
-=======
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Mic, Send, ArrowLeft, Award, TrendingUp, Target, CheckCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import EmployeeNavbar from '../components/EmployeeNavbar';
 import Footer from '../components/Footer';
 import './AIInterviewPage.css';
 
 export default function AIInterviewPage() {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const [step, setStep] = useState('setup');
   const [cvFile, setCvFile] = useState(null);
   const [jobTitle, setJobTitle] = useState('');
   const [mode, setMode] = useState(null);
-=======
-  const [mode, setMode] = useState(null); // 'chat' or 'voice'
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   const [started, setStarted] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
@@ -35,7 +24,6 @@ export default function AIInterviewPage() {
   const [sessionComplete, setSessionComplete] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [points, setPoints] = useState(0);
-<<<<<<< HEAD
   const [sessionId, setSessionId] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [user, setUser] = useState(null);
@@ -662,25 +650,6 @@ export default function AIInterviewPage() {
 
   const sendMessage = async () => {
     if (!inputText.trim() || !sessionId) return;
-=======
-
-  const startInterview = (selectedMode) => {
-    setMode(selectedMode);
-    setStarted(true);
-    
-    // Initial AI greeting
-    setTimeout(() => {
-      setMessages([{
-        role: 'ai',
-        text: 'Hello! Welcome to your AI interview practice session. I\'m here to help you improve your interview skills. Let\'s start with a simple question: Can you tell me about yourself and your background?',
-        timestamp: new Date()
-      }]);
-    }, 500);
-  };
-
-  const sendMessage = () => {
-    if (!inputText.trim()) return;
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
     const userMessage = {
       role: 'user',
@@ -689,7 +658,6 @@ export default function AIInterviewPage() {
     };
 
     setMessages(prev => [...prev, userMessage]);
-<<<<<<< HEAD
     const answer = inputText;
     setInputText('');
 
@@ -781,96 +749,12 @@ export default function AIInterviewPage() {
 
   const resetSession = () => {
     setStep('setup');
-=======
-    setInputText('');
-
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponses = [
-        'That\'s a great answer! Your experience really shows. Now, can you describe a challenging project you worked on?',
-        'Excellent! I can see you have strong problem-solving skills. How do you handle working under pressure?',
-        'Impressive background! What are your key strengths that make you suitable for this role?',
-        'Very good! Can you tell me about a time when you had to work with a difficult team member?'
-      ];
-
-      const aiMessage = {
-        role: 'ai',
-        text: aiResponses[Math.floor(Math.random() * aiResponses.length)],
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, aiMessage]);
-
-      // End session after 5 exchanges
-      if (messages.length >= 8) {
-        setTimeout(() => endSession(), 2000);
-      }
-    }, 1500);
-  };
-
-  const toggleRecording = () => {
-    setIsRecording(!isRecording);
-    
-    if (!isRecording) {
-      // Start recording simulation
-      setTimeout(() => {
-        setIsRecording(false);
-        const userMessage = {
-          role: 'user',
-          text: '[Voice response recorded]',
-          timestamp: new Date()
-        };
-        setMessages(prev => [...prev, userMessage]);
-
-        // AI response
-        setTimeout(() => {
-          const aiMessage = {
-            role: 'ai',
-            text: 'Great response! Your tone and confidence are improving. Let\'s continue with the next question...',
-            timestamp: new Date()
-          };
-          setMessages(prev => [...prev, aiMessage]);
-        }, 1000);
-      }, 3000);
-    }
-  };
-
-  const endSession = () => {
-    setSessionComplete(true);
-    
-    // Calculate points and feedback
-    const earnedPoints = Math.floor(Math.random() * 30) + 70;
-    setPoints(earnedPoints);
-
-    setFeedback({
-      overallScore: earnedPoints,
-      strengths: [
-        'Clear and confident communication',
-        'Good examples from past experience',
-        'Positive attitude and enthusiasm'
-      ],
-      improvements: [
-        'Try to structure answers using STAR method',
-        'Provide more quantifiable achievements',
-        'Practice maintaining eye contact'
-      ],
-      recommendations: [
-        'Practice behavioral questions more',
-        'Research common technical questions',
-        'Work on your closing statement'
-      ]
-    });
-  };
-
-  const resetSession = () => {
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
     setMode(null);
     setStarted(false);
     setMessages([]);
     setSessionComplete(false);
     setFeedback(null);
     setPoints(0);
-<<<<<<< HEAD
     setSessionId(null);
     setCurrentQuestion('');
     setCvFile(null);
@@ -886,25 +770,15 @@ export default function AIInterviewPage() {
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   return (
     <div className="ai-interview-page">
-<<<<<<< HEAD
-=======
-      {/* Background */}
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       <div className="ai-interview-bg">
         <div className="ai-interview-orb-1" />
         <div className="ai-interview-orb-2" />
       </div>
 
-<<<<<<< HEAD
-=======
-      {/* Particles - النقاط الصفراء */}
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       <div className="particles-container">
         {[...Array(30)].map((_, i) => (
           <motion.div
@@ -928,7 +802,6 @@ export default function AIInterviewPage() {
         ))}
       </div>
 
-<<<<<<< HEAD
       <EmployeeNavbar />
 
       <div className="ai-interview-content">
@@ -992,31 +865,19 @@ export default function AIInterviewPage() {
 
         {/* Mode Selection */}
         {step === 'mode-selection' && (
-=======
-      {/* Navbar */}
-      <EmployeeNavbar />
-
-      <div className="ai-interview-content">
-        {/* Mode Selection */}
-        {!started && !sessionComplete && (
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mode-selection"
           >
-<<<<<<< HEAD
             <button onClick={() => setStep('setup')} className="back-btn-setup">
               <ArrowLeft size={20} /> Back
             </button>
 
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             <h1 className="ai-interview-title">
               Choose Your Practice Mode
             </h1>
             <p className="ai-interview-subtitle">
-<<<<<<< HEAD
               Practice with AI to improve your interview skills. You can answer in English or Arabic!
             </p>
 
@@ -1025,11 +886,6 @@ export default function AIInterviewPage() {
               {cvFile && <span>📄 CV Uploaded</span>}
             </div>
 
-=======
-              Practice with AI to improve your interview skills and build confidence
-            </p>
-
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             <div className="mode-cards">
               <motion.div
                 className="mode-card"
@@ -1040,11 +896,7 @@ export default function AIInterviewPage() {
                 <h3>Chat Mode</h3>
                 <p>Text-based interview practice with instant feedback</p>
                 <ul>
-<<<<<<< HEAD
                   <li>✓ Type your answers in English or Arabic</li>
-=======
-                  <li>✓ Type your answers</li>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   <li>✓ Take your time</li>
                   <li>✓ Review responses</li>
                 </ul>
@@ -1058,20 +910,12 @@ export default function AIInterviewPage() {
               >
                 <Mic size={60} />
                 <h3>Voice Mode</h3>
-<<<<<<< HEAD
                 <p>Speak your answers like a real interview with AI voice responses</p>
                 <ul>
                   <li>✓ Voice responses</li>
                   <li>✓ AI speaks back to you</li>
                   <li>✓ Tone analysis</li>
                   <li>✓ Natural conversation</li>
-=======
-                <p>Speak your answers like a real interview</p>
-                <ul>
-                  <li>✓ Voice responses</li>
-                  <li>✓ Natural conversation</li>
-                  <li>✓ Tone analysis</li>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 </ul>
                 <button className="mode-btn mode-btn-voice">Start Voice Interview</button>
               </motion.div>
@@ -1080,7 +924,6 @@ export default function AIInterviewPage() {
         )}
 
         {/* Interview Session */}
-<<<<<<< HEAD
         {step === 'interview' && started && !sessionComplete && (
           <div className="interview-session">
             <div className="interview-header">
@@ -1110,18 +953,6 @@ export default function AIInterviewPage() {
                   {detectedLanguage === 'ar' ? 'إنهاء المقابلة' : 'End Interview'}
                 </button>
               )}
-=======
-        {started && !sessionComplete && (
-          <div className="interview-session">
-            <div className="interview-header">
-              <button onClick={resetSession} className="back-btn">
-                <ArrowLeft size={20} /> Back
-              </button>
-              <div className="mode-indicator">
-                {mode === 'chat' ? <MessageSquare size={20} /> : <Mic size={20} />}
-                {mode === 'chat' ? 'Chat Mode' : 'Voice Mode'}
-              </div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             </div>
 
             <div className="messages-container">
@@ -1154,13 +985,8 @@ export default function AIInterviewPage() {
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-<<<<<<< HEAD
                   onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Type your answer here (English or Arabic)..."
-=======
-                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder="Type your answer here..."
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   className="message-input"
                 />
                 <button onClick={sendMessage} className="send-btn">
@@ -1171,7 +997,6 @@ export default function AIInterviewPage() {
 
             {mode === 'voice' && (
               <div className="voice-controls">
-<<<<<<< HEAD
                 <div className="language-toggle">
                   <button
                     onClick={() => setDetectedLanguage('ar')}
@@ -1196,14 +1021,11 @@ export default function AIInterviewPage() {
                   </button>
                 </div>
 
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 <motion.button
                   onClick={toggleRecording}
                   className={`record-btn ${isRecording ? 'recording' : ''}`}
                   animate={isRecording ? { scale: [1, 1.1, 1] } : {}}
                   transition={{ repeat: Infinity, duration: 1 }}
-<<<<<<< HEAD
                   disabled={isAISpeaking}
                 >
                   <Mic size={32} />
@@ -1258,23 +1080,13 @@ export default function AIInterviewPage() {
                     </div>
                   </motion.div>
                 )}
-=======
-                >
-                  <Mic size={32} />
-                  {isRecording ? 'Recording...' : 'Hold to Speak'}
-                </motion.button>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </div>
             )}
           </div>
         )}
 
         {/* Feedback Section */}
-<<<<<<< HEAD
         {step === 'complete' && sessionComplete && feedback && (
-=======
-        {sessionComplete && feedback && (
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

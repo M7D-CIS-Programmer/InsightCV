@@ -1,21 +1,13 @@
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, Mail, Phone, MapPin, Briefcase, Calendar, Edit2, Save, Award, TrendingUp, Plus, X, Upload, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { profileAPI, cvAPI } from '../services/api';
 import { getUser, saveUser } from '../utils/auth';
-=======
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { User, Mail, Phone, MapPin, Briefcase, Calendar, Edit2, Save, Award, TrendingUp } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import EmployeeNavbar from '../components/EmployeeNavbar';
 import Footer from '../components/Footer';
 import './ProfilePage.css';
 
-<<<<<<< HEAD
 // Skills Editor Component
 const SkillsEditor = ({ skills, onChange }) => {
   const [newSkill, setNewSkill] = useState('');
@@ -179,11 +171,13 @@ export default function ProfilePage() {
 
   const fetchProfile = async (userId) => {
     try {
-      // Fetch profile first so the page can render even if stats fail
-      const profileResponse = await profileAPI.get(userId);
+      const [profileResponse, statsResponse] = await Promise.all([
+        profileAPI.get(userId),
+        profileAPI.getStatistics(userId)
+      ]);
 
       const userData = profileResponse.user;
-
+      
       // Format profile based on user role
       let formattedProfile;
       if (userData.role === 'candidate') {
@@ -232,15 +226,8 @@ export default function ProfilePage() {
 
       setProfile(formattedProfile);
       setTempProfile(formattedProfile);
-
-      // Fetch statistics separately; do not block profile rendering if it fails
-      try {
-        const statsResponse = await profileAPI.getStatistics(userId);
-        setStats(statsResponse.statistics);
-      } catch (statsError) {
-        console.warn('Failed to fetch statistics:', statsError);
-      }
-
+      setStats(statsResponse.statistics);
+      
       // Check if profile is incomplete
       if (userData.role === 'company') {
         const isIncomplete = !userData.company?.about || !userData.company?.industry || !userData.phone || !userData.location;
@@ -252,46 +239,17 @@ export default function ProfilePage() {
       }
     } catch (error) {
       console.error('Failed to fetch profile:', error);
-      alert('Failed to load profile. ' + (error.message || 'Please try again.'));
+      alert('Failed to load profile. Please try again.');
     } finally {
       setLoading(false);
     }
   };
-=======
-export default function ProfilePage() {
-  const navigate = useNavigate();
-  const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
-    name: 'John Doe',
-    email: 'john.doe@email.com',
-    phone: '+1 (555) 123-4567',
-    location: 'New York, NY',
-    title: 'Full Stack Developer',
-    experience: '5 years',
-    dateJoined: 'January 2024',
-    bio: 'Passionate full stack developer with expertise in React, Node.js, and cloud technologies. Love building scalable applications.',
-    skills: ['React', 'Node.js', 'TypeScript', 'AWS', 'MongoDB', 'Docker'],
-    education: 'BS Computer Science - MIT',
-    expectedSalary: '$120k - $150k',
-    availability: 'Available'
-  });
-
-  const [stats] = useState({
-    cvsAnalyzed: 3,
-    practiceSessions: 8,
-    pointsEarned: 450,
-    jobsApplied: 12
-  });
-
-  const [tempProfile, setTempProfile] = useState(profile);
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
   const handleEdit = () => {
     setIsEditing(true);
     setTempProfile(profile);
   };
 
-<<<<<<< HEAD
   const handleSave = async () => {
     if (!user) return;
 
@@ -366,12 +324,6 @@ export default function ProfilePage() {
     } finally {
       setSaving(false);
     }
-=======
-  const handleSave = () => {
-    setProfile(tempProfile);
-    setIsEditing(false);
-    alert('Profile updated successfully!');
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   const handleCancel = () => {
@@ -383,7 +335,6 @@ export default function ProfilePage() {
     setTempProfile(prev => ({ ...prev, [field]: value }));
   };
 
-<<<<<<< HEAD
   if (loading) {
     return (
       <div className="profile-page">
@@ -408,8 +359,6 @@ export default function ProfilePage() {
     );
   }
 
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   return (
     <div className="profile-page">
       {/* Background */}
@@ -458,11 +407,7 @@ export default function ProfilePage() {
               <Award size={32} />
             </div>
             <div className="stat-info">
-<<<<<<< HEAD
               <div className="stat-number">{stats?.points_earned || user?.points || 0}</div>
-=======
-              <div className="stat-number">{stats.pointsEarned}</div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               <div className="stat-label">Total Points</div>
             </div>
           </div>
@@ -472,13 +417,8 @@ export default function ProfilePage() {
               <TrendingUp size={32} />
             </div>
             <div className="stat-info">
-<<<<<<< HEAD
               <div className="stat-number">{stats?.cvs_analyzed || stats?.jobs_posted || 0}</div>
               <div className="stat-label">{user?.role === 'candidate' ? 'CVs Analyzed' : 'Jobs Posted'}</div>
-=======
-              <div className="stat-number">{stats.cvsAnalyzed}</div>
-              <div className="stat-label">CVs Analyzed</div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             </div>
           </div>
 
@@ -487,13 +427,8 @@ export default function ProfilePage() {
               <Briefcase size={32} />
             </div>
             <div className="stat-info">
-<<<<<<< HEAD
               <div className="stat-number">{stats?.practice_sessions || stats?.active_jobs || 0}</div>
               <div className="stat-label">{user?.role === 'candidate' ? 'Practice Sessions' : 'Active Jobs'}</div>
-=======
-              <div className="stat-number">{stats.practiceSessions}</div>
-              <div className="stat-label">Practice Sessions</div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             </div>
           </div>
 
@@ -502,13 +437,8 @@ export default function ProfilePage() {
               <Mail size={32} />
             </div>
             <div className="stat-info">
-<<<<<<< HEAD
               <div className="stat-number">{stats?.jobs_applied || stats?.total_applicants || 0}</div>
               <div className="stat-label">{user?.role === 'candidate' ? 'Jobs Applied' : 'Total Applicants'}</div>
-=======
-              <div className="stat-number">{stats.jobsApplied}</div>
-              <div className="stat-label">Jobs Applied</div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             </div>
           </div>
         </motion.div>
@@ -573,24 +503,15 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="form-group-profile">
-<<<<<<< HEAD
                   <label>{user?.role === 'candidate' ? 'Job Title' : 'Company Name'}</label>
                   <input
                     type="text"
                     value={user?.role === 'candidate' ? tempProfile.title : tempProfile.companyName}
                     onChange={(e) => handleChange(user?.role === 'candidate' ? 'title' : 'companyName', e.target.value)}
-=======
-                  <label>Job Title</label>
-                  <input
-                    type="text"
-                    value={tempProfile.title}
-                    onChange={(e) => handleChange('title', e.target.value)}
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   />
                 </div>
 
                 <div className="form-group-profile">
-<<<<<<< HEAD
                   <label>{user?.role === 'candidate' ? 'Experience' : 'Industry'}</label>
                   <input
                     type="text"
@@ -647,23 +568,6 @@ export default function ProfilePage() {
                   <button className="save-btn-profile" onClick={handleSave} disabled={saving}>
                     <Save size={18} />
                     {saving ? 'Saving...' : 'Save Changes'}
-=======
-                  <label>Experience</label>
-                  <input
-                    type="text"
-                    value={tempProfile.experience}
-                    onChange={(e) => handleChange('experience', e.target.value)}
-                  />
-                </div>
-
-                <div className="profile-form-actions">
-                  <button className="cancel-btn-profile" onClick={handleCancel}>
-                    Cancel
-                  </button>
-                  <button className="save-btn-profile" onClick={handleSave}>
-                    <Save size={18} />
-                    Save Changes
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   </button>
                 </div>
               </div>
@@ -679,7 +583,6 @@ export default function ProfilePage() {
                   </div>
                   <div className="detail-row">
                     <Phone size={18} />
-<<<<<<< HEAD
                     <span>{profile.phone || 'Not provided'}</span>
                   </div>
                   <div className="detail-row">
@@ -689,17 +592,6 @@ export default function ProfilePage() {
                   <div className="detail-row">
                     <Briefcase size={18} />
                     <span>{profile.experience || 'Not provided'}</span>
-=======
-                    <span>{profile.phone}</span>
-                  </div>
-                  <div className="detail-row">
-                    <MapPin size={18} />
-                    <span>{profile.location}</span>
-                  </div>
-                  <div className="detail-row">
-                    <Briefcase size={18} />
-                    <span>{profile.experience} experience</span>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   </div>
                   <div className="detail-row">
                     <Calendar size={18} />
@@ -707,19 +599,12 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-<<<<<<< HEAD
                 {user?.role === 'candidate' && (
                   <div className="profile-status">
                     <div className="status-badge available">{profile.availability}</div>
                     {profile.expectedSalary && <div className="salary-badge">{profile.expectedSalary}</div>}
                   </div>
                 )}
-=======
-                <div className="profile-status">
-                  <div className="status-badge available">{profile.availability}</div>
-                  <div className="salary-badge">{profile.expectedSalary}</div>
-                </div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </div>
             )}
           </motion.div>
@@ -733,11 +618,7 @@ export default function ProfilePage() {
               transition={{ delay: 0.2 }}
               className="profile-section-card"
             >
-<<<<<<< HEAD
               <h3 className="section-title">{user?.role === 'candidate' ? 'About Me' : 'About Company'}</h3>
-=======
-              <h3 className="section-title">About Me</h3>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               {isEditing ? (
                 <textarea
                   value={tempProfile.bio}
@@ -746,7 +627,6 @@ export default function ProfilePage() {
                   className="bio-textarea"
                 />
               ) : (
-<<<<<<< HEAD
                 <p className="bio-text">{profile.bio || 'No information provided yet.'}</p>
               )}
             </motion.div>
@@ -788,31 +668,6 @@ export default function ProfilePage() {
                 )}
               </motion.div>
             )}
-=======
-                <p className="bio-text">{profile.bio}</p>
-              )}
-            </motion.div>
-
-            {/* Skills Section */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="profile-section-card"
-            >
-              <h3 className="section-title">Skills</h3>
-              <div className="skills-grid-profile">
-                {profile.skills.map((skill, idx) => (
-                  <div key={idx} className="skill-item-profile">
-                    {skill}
-                  </div>
-                ))}
-              </div>
-              {!isEditing && (
-                <button className="add-skill-btn-profile">+ Add Skill</button>
-              )}
-            </motion.div>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
             {/* Education Section */}
             <motion.div
@@ -821,11 +676,7 @@ export default function ProfilePage() {
               transition={{ delay: 0.4 }}
               className="profile-section-card"
             >
-<<<<<<< HEAD
               <h3 className="section-title">{user?.role === 'candidate' ? 'Education' : 'Industry'}</h3>
-=======
-              <h3 className="section-title">Education</h3>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               {isEditing ? (
                 <input
                   type="text"
@@ -834,7 +685,6 @@ export default function ProfilePage() {
                   className="education-input"
                 />
               ) : (
-<<<<<<< HEAD
                 <p className="education-text">{profile.education || 'Not provided'}</p>
               )}
             </motion.div>
@@ -894,21 +744,11 @@ export default function ProfilePage() {
               </motion.div>
             )}
 
-=======
-                <p className="education-text">{profile.education}</p>
-              )}
-            </motion.div>
-
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
             {/* Recent Activity */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-<<<<<<< HEAD
               transition={{ delay: 0.6 }}
-=======
-              transition={{ delay: 0.5 }}
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               className="profile-section-card"
             >
               <h3 className="section-title">Recent Activity</h3>
@@ -916,33 +756,21 @@ export default function ProfilePage() {
                 <div className="activity-item">
                   <div className="activity-icon">📄</div>
                   <div className="activity-content">
-<<<<<<< HEAD
                     <p className="activity-title">{user?.role === 'candidate' ? 'CV Analyzed' : 'Job Posted'}</p>
-=======
-                    <p className="activity-title">CV Analyzed</p>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                     <p className="activity-time">2 days ago</p>
                   </div>
                 </div>
                 <div className="activity-item">
                   <div className="activity-icon">💼</div>
                   <div className="activity-content">
-<<<<<<< HEAD
                     <p className="activity-title">{user?.role === 'candidate' ? 'Applied to Frontend Developer' : 'New Applicant Received'}</p>
-=======
-                    <p className="activity-title">Applied to Frontend Developer</p>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                     <p className="activity-time">5 days ago</p>
                   </div>
                 </div>
                 <div className="activity-item">
                   <div className="activity-icon">🎤</div>
                   <div className="activity-content">
-<<<<<<< HEAD
                     <p className="activity-title">{user?.role === 'candidate' ? 'Completed AI Interview Practice' : 'Profile Updated'}</p>
-=======
-                    <p className="activity-title">Completed AI Interview Practice</p>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                     <p className="activity-time">1 week ago</p>
                   </div>
                 </div>

@@ -24,10 +24,7 @@ import ContactPage from './pages/ContactPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import AboutPage from './pages/AboutPage';
 import RatingPage from './pages/RatingPage';
-<<<<<<< HEAD
 import JobApplicantsPage from './pages/JobApplicantsPage';
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 
 function App() {
   const [isDarkMode, setIsDarkMode] = React.useState(true);
@@ -60,10 +57,7 @@ function App() {
           <Route path="/company-home/post-job" element={<PostJobPage />} />
           <Route path="/company-home/suggested" element={<SuggestedEmployeesPage />} />
           <Route path="/company-home/my-jobs" element={<MyJobsPage />} />
-<<<<<<< HEAD
           <Route path="/company-home/job-applicants/:jobId" element={<JobApplicantsPage />} />
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
           <Route path="/company-home/my-company" element={<MyCompanyPage />} />
           <Route path="/company-home/rate-us" element={<RatingPage />} />
           

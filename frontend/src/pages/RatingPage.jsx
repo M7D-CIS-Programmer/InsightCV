@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Send, CheckCircle } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ratingAPI } from '../services/api';
 import { getUser } from '../utils/auth';
-=======
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Star, Send, CheckCircle } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
 import EmployeeNavbar from '../components/EmployeeNavbar';
 import NavbarCompany from '../components/companyHome/NavbarCompany';
 import Footer from '../components/Footer';
@@ -28,10 +21,7 @@ const fadeUp = {
 
 export default function RatingPage() {
   const location = useLocation();
-<<<<<<< HEAD
   const navigate = useNavigate();
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   const isEmployee = location.pathname.includes('employee-home');
   
   const [rating, setRating] = useState(0);
@@ -39,7 +29,6 @@ export default function RatingPage() {
   const [comment, setComment] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-<<<<<<< HEAD
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
@@ -67,19 +56,10 @@ export default function RatingPage() {
 
     if (!user) {
       navigate('/login');
-=======
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (rating === 0) {
-      alert('Please select a rating before submitting.');
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
       return;
     }
 
     setIsSubmitting(true);
-<<<<<<< HEAD
     setError('');
     
     try {
@@ -99,22 +79,6 @@ export default function RatingPage() {
       setError(err.message || 'Failed to submit rating. Please try again.');
       setIsSubmitting(false);
     }
-=======
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Rating submitted:', { rating, comment, userType: isEmployee ? 'employee' : 'company' });
-      setIsSubmitting(false);
-      setSubmitted(true);
-      
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setSubmitted(false);
-        setRating(0);
-        setComment('');
-      }, 3000);
-    }, 1000);
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
   };
 
   const StarRating = () => {
@@ -200,7 +164,6 @@ export default function RatingPage() {
           {!submitted ? (
             <motion.div variants={fadeUp} className="rating-card">
               <form onSubmit={handleSubmit} className="rating-form">
-<<<<<<< HEAD
                 {error && (
                   <div style={{ 
                     color: '#ff4444', 
@@ -214,8 +177,6 @@ export default function RatingPage() {
                   </div>
                 )}
                 
-=======
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                 <div className="rating-section">
                   <h3 className="section-title">How would you rate us?</h3>
                   <StarRating />
@@ -232,11 +193,7 @@ export default function RatingPage() {
                 </div>
 
                 <div className="comment-section">
-<<<<<<< HEAD
                   <h3 className="section-title">Tell us more</h3>
-=======
-                  <h3 className="section-title">Tell us more (optional)</h3>
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
                   <textarea
                     className="comment-textarea"
                     placeholder="Share your thoughts, suggestions, or feedback..."
@@ -291,14 +248,9 @@ export default function RatingPage() {
               </motion.div>
               <h2 className="success-title">Thank You! 🎉</h2>
               <p className="success-message">
-<<<<<<< HEAD
                 Your feedback has been submitted successfully!<br/>
                 Your review is now live on our homepage.<br/>
                 Redirecting you back...
-=======
-                Your feedback has been submitted successfully.<br/>
-                We appreciate you taking the time to help us improve!
->>>>>>> e4b09724d850cc3d873bcf67316913dc41cf11c3
               </p>
             </motion.div>
           )}

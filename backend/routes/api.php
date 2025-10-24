@@ -8,9 +8,6 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CandidateController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\VoiceTranscriptionController;
-use App\Http\Controllers\TTSController;
 
 // Authentication Routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -35,12 +32,12 @@ Route::get('/interview/user/{userId}', [AIInterviewController::class, 'getUserSe
 Route::get('/interview/{id}', [AIInterviewController::class, 'getSession']);
 
 // TTS Routes (Text-to-Speech)
-Route::post('/tts', [TTSController::class, 'generate']);
-Route::post('/tts/clean-cache', [TTSController::class, 'cleanCache']);
+Route::post('/tts', [App\Http\Controllers\TTSController::class, 'generate']);
+Route::post('/tts/clean-cache', [App\Http\Controllers\TTSController::class, 'cleanCache']);
 
 // Voice Transcription Routes (AssemblyAI)
-Route::post('/voice/transcribe', [VoiceTranscriptionController::class, 'transcribeAudio']);
-Route::post('/voice/transcribe-url', [VoiceTranscriptionController::class, 'transcribeFromUrl']);
+Route::post('/voice/transcribe', [App\Http\Controllers\VoiceTranscriptionController::class, 'transcribeAudio']);
+Route::post('/voice/transcribe-url', [App\Http\Controllers\VoiceTranscriptionController::class, 'transcribeFromUrl']);
 
 // Job Routes
 Route::get('/jobs', [JobController::class, 'index']);
@@ -77,10 +74,10 @@ Route::get('/candidates/{id}', [CandidateController::class, 'show']);
 Route::get('/candidates/check-profile/{userId}', [CandidateController::class, 'checkProfileCompletion']);
 
 // Notification Routes
-Route::get('/notifications', [NotificationController::class, 'index']);
-Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount']);
-Route::put('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
-Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
-Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
+Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index']);
+Route::get('/notifications/unread-count', [App\Http\Controllers\NotificationController::class, 'getUnreadCount']);
+Route::put('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead']);
+Route::post('/notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead']);
+Route::delete('/notifications/{id}', [App\Http\Controllers\NotificationController::class, 'destroy']);
 
 

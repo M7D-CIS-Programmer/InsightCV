@@ -22,7 +22,8 @@ class Candidate extends Model
     public function skills()
     {
         return $this->belongsToMany(Skill::class, 'candidate_skills')
-            ->withPivot('proficiency_level');
+            ->withPivot('proficiency_level')
+            ->withTimestamps();
     }
 
     public function cvs()

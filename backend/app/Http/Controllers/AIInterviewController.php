@@ -27,11 +27,7 @@ class AIInterviewController extends Controller
         }
 
         try {
-            // Load only what we need and ensure candidate is eager loaded
-            $user = User::query()
-                ->select('id')
-                ->with(['candidate:id,user_id'])
-                ->find($request->user_id);
+            $user = User::find($request->user_id);
             
             if (!$user) {
                 return response()->json(['message' => 'User not found'], 404);
@@ -88,10 +84,7 @@ class AIInterviewController extends Controller
         }
 
         try {
-            // Select minimal columns needed for this operation
-            $session = AIInterviewSession::query()
-                ->select(['id', 'questions', 'answers', 'voice_analysis', 'job_title', 'mode', 'started_at', 'candidate_id'])
-                ->find($sessionId);
+            $session = AIInterviewSession::find($sessionId);
 
             if (!$session) {
                 return response()->json(['message' => 'Session not found'], 404);
@@ -141,16 +134,11 @@ class AIInterviewController extends Controller
         try {
             // If session is an ID, fetch it
             if (!$session instanceof AIInterviewSession) {
-                $session = AIInterviewSession::query()
-                    ->select(['id', 'candidate_id', 'mode', 'answers', 'started_at'])
-                    ->with(['candidate:id,user_id'])
-                    ->find($session);
+                $session = AIInterviewSession::find($session);
                 if (!$session) {
                     return response()->json(['message' => 'Session not found'], 404);
                 }
             }
-            // Ensure candidate relation is available with minimal columns
-            $session->loadMissing('candidate:id,user_id');
 
             $feedback = $this->generateFeedback($session);
             $overallScore = rand(70, 95);
@@ -164,8 +152,8 @@ class AIInterviewController extends Controller
                 'duration_minutes' => now()->diffInMinutes($session->started_at),
             ]);
 
-            // Update user points without loading the whole user model
-            User::whereKey($session->candidate->user_id)->increment('points', $pointsEarned);
+            // Update user points
+            $session->candidate->user->increment('points', $pointsEarned);
 
             return response()->json([
                 'message' => 'Interview session completed',
@@ -184,19 +172,13 @@ class AIInterviewController extends Controller
 
     public function getUserSessions($userId)
     {
-        // Load minimal user and candidate info
-        $user = User::query()
-            ->select('id')
-            ->with(['candidate:id,user_id'])
-            ->find($userId);
+        $user = User::find($userId);
         
         if (!$user || !$user->candidate) {
             return response()->json(['message' => 'Candidate not found'], 404);
         }
 
-        // Query sessions directly using candidate id to avoid extra relation overhead
-        $sessions = AIInterviewSession::query()
-            ->where('candidate_id', $user->candidate->id)
+        $sessions = $user->candidate->interviewSessions()
             ->orderBy('started_at', 'desc')
             ->get();
 
@@ -205,14 +187,7 @@ class AIInterviewController extends Controller
 
     public function getSession($id)
     {
-        $session = AIInterviewSession::with([
-                'candidate' => function ($q) {
-                    $q->select('id', 'user_id')
-                      ->with(['user' => function ($uq) {
-                          $uq->select('id', 'name', 'points');
-                      }]);
-                }
-            ])->find($id);
+        $session = AIInterviewSession::with('candidate.user')->find($id);
 
         if (!$session) {
             return response()->json(['message' => 'Session not found'], 404);
