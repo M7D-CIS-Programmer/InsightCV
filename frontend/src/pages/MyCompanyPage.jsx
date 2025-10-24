@@ -1,53 +1,128 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Building2, Edit2, Save, MapPin, Globe, Users, Mail, Phone, Calendar, Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import NavbarCompany from '../components/companyHome/NavbarCompany';
 import Footer from '../components/Footer';
 import './MyCompanyPage.css';
+import { profileAPI } from '../services/api';
+import { getUser, saveUser } from '../utils/auth';
 
 export default function MyCompanyPage() {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [user, setUser] = useState(null);
   const [companyData, setCompanyData] = useState({
-    name: 'TechCorp Solutions',
+    name: '',
     logo: '🏢',
-    industry: 'Technology',
-    size: '50-200 employees',
-    founded: '2015',
-    location: 'New York, NY',
-    website: 'www.techcorp.com',
-    email: 'contact@techcorp.com',
-    phone: '+1 (555) 123-4567',
-    about: 'TechCorp Solutions is a leading technology company specializing in innovative software solutions. We are committed to building cutting-edge products that transform businesses and improve lives.',
-    culture: 'We foster a collaborative and inclusive work environment where creativity and innovation thrive. Our team is passionate about technology and dedicated to continuous learning.',
-    benefits: [
-      'Competitive salary and equity',
-      'Health, dental, and vision insurance',
-      'Flexible work hours and remote options',
-      '401(k) matching',
-      'Professional development budget',
-      'Unlimited PTO'
-    ],
-    values: ['Innovation', 'Integrity', 'Collaboration', 'Excellence'],
+    industry: '',
+    size: '',
+    founded: '',
+    location: '',
+    website: '',
+    email: '',
+    phone: '',
+    about: '',
+    culture: '',
+    benefits: [],
+    values: [],
     socialMedia: {
-      linkedin: 'linkedin.com/company/techcorp',
-      twitter: '@techcorp',
-      github: 'github.com/techcorp'
+      linkedin: '',
+      twitter: '',
+      github: ''
     }
   });
 
   const [tempData, setTempData] = useState(companyData);
+
+  useEffect(() => {
+    const currentUser = getUser();
+    if (!currentUser) {
+      navigate('/login');
+      return;
+    }
+    setUser(currentUser);
+    loadCompany(currentUser.id);
+  }, [navigate]);
+
+  const loadCompany = async (userId) => {
+    setLoading(true);
+    try {
+      const res = await profileAPI.get(userId);
+      const u = res.user;
+      const company = u.company || {};
+      const mapped = {
+        name: u.name || company.name || '',
+        logo: '🏢',
+        industry: company.industry || '',
+        size: company.size || '',
+        founded: company.founded_year ? String(company.founded_year) : '',
+        location: u.location || '',
+        website: company.website ? company.website.replace(/^https?:\/\//, '') : '',
+        email: u.email || '',
+        phone: u.phone || '',
+        about: company.about || '',
+        culture: company.culture || '',
+        benefits: Array.isArray(company.benefits)
+          ? company.benefits
+          : (company.benefits ? String(company.benefits).split(',').map(s => s.trim()).filter(Boolean) : []),
+        values: Array.isArray(company.values)
+          ? company.values
+          : (company.values ? String(company.values).split(',').map(s => s.trim()).filter(Boolean) : []),
+        socialMedia: {
+          linkedin: company.social_linkedin || '',
+          twitter: company.social_twitter || '',
+          github: company.social_github || ''
+        },
+      };
+      setCompanyData(mapped);
+      setTempData(mapped);
+    } catch (e) {
+      alert((e && e.message) || 'Failed to load company profile');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEdit = () => {
     setIsEditing(true);
     setTempData(companyData);
   };
 
-  const handleSave = () => {
-    setCompanyData(tempData);
-    setIsEditing(false);
-    alert('Company information updated successfully!');
+  const handleSave = async () => {
+    if (!user) return;
+    setSaving(true);
+    try {
+      const updateData = {
+        name: tempData.name,
+        email: tempData.email,
+        phone: tempData.phone,
+        location: tempData.location,
+        company_name: tempData.name,
+        industry: tempData.industry || '',
+        size: tempData.size || '',
+        founded_year: tempData.founded ? parseInt(tempData.founded) : null,
+        website: tempData.website ? (tempData.website.startsWith('http') ? tempData.website : `https://${tempData.website}`) : '',
+        about: tempData.about || '',
+        culture: tempData.culture || '',
+        benefits: Array.isArray(tempData.benefits) ? tempData.benefits.join(', ') : (tempData.benefits || ''),
+        values: Array.isArray(tempData.values) ? tempData.values.join(', ') : (tempData.values || ''),
+      };
+
+      const response = await profileAPI.updateCompany(user.id, updateData);
+      if (response && response.user) {
+        saveUser(response.user);
+      }
+      await loadCompany(user.id);
+      setIsEditing(false);
+      alert('Company information updated successfully!');
+    } catch (e) {
+      alert('Failed to update: ' + (e && e.message ? e.message : 'Please try again'));
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleCancel = () => {
@@ -91,6 +166,9 @@ export default function MyCompanyPage() {
       <NavbarCompany />
 
       <div className="my-company-content">
+        {loading && (
+          <div style={{ textAlign: 'center', padding: '60px', color: '#FFD700' }}>Loading company profile...</div>
+        )}
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -105,7 +183,7 @@ export default function MyCompanyPage() {
             </div>
           </div>
           {!isEditing && (
-            <button className="edit-company-btn" onClick={handleEdit}>
+            <button className="edit-company-btn" onClick={handleEdit} disabled={loading}>
               <Edit2 size={18} />
               Edit Profile
             </button>
@@ -161,20 +239,23 @@ export default function MyCompanyPage() {
                     value={tempData.size}
                     onChange={(e) => handleChange('size', e.target.value)}
                   >
-                    <option value="1-10 employees">1-10 employees</option>
-                    <option value="11-50 employees">11-50 employees</option>
-                    <option value="50-200 employees">50-200 employees</option>
-                    <option value="200-500 employees">200-500 employees</option>
-                    <option value="500+ employees">500+ employees</option>
+                    <option value="">Select size...</option>
+                    <option value="1-10">1-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="50-200">50-200 employees</option>
+                    <option value="200-500">200-500 employees</option>
+                    <option value="500+">500+ employees</option>
                   </select>
                 </div>
 
                 <div className="form-group-company">
                   <label>Founded Year</label>
                   <input
-                    type="text"
+                    type="number"
                     value={tempData.founded}
                     onChange={(e) => handleChange('founded', e.target.value)}
+                    min="1800"
+                    max={new Date().getFullYear()}
                   />
                 </div>
 
@@ -215,12 +296,12 @@ export default function MyCompanyPage() {
                 </div>
 
                 <div className="company-form-actions">
-                  <button className="cancel-btn-company" onClick={handleCancel}>
+                  <button className="cancel-btn-company" onClick={handleCancel} disabled={saving}>
                     Cancel
                   </button>
-                  <button className="save-btn-company" onClick={handleSave}>
+                  <button className="save-btn-company" onClick={handleSave} disabled={saving}>
                     <Save size={18} />
-                    Save Changes
+                    {saving ? 'Saving...' : 'Save Changes'}
                   </button>
                 </div>
               </div>
@@ -232,21 +313,25 @@ export default function MyCompanyPage() {
                 <div className="company-details-list">
                   <div className="detail-row-company">
                     <Users size={18} />
-                    <span>{companyData.size}</span>
+                    <span>{companyData.size || 'Not set'}</span>
                   </div>
                   <div className="detail-row-company">
                     <Calendar size={18} />
-                    <span>Founded in {companyData.founded}</span>
+                    <span>{companyData.founded ? `Founded in ${companyData.founded}` : 'Founded year not set'}</span>
                   </div>
                   <div className="detail-row-company">
                     <MapPin size={18} />
-                    <span>{companyData.location}</span>
+                    <span>{companyData.location || 'Not set'}</span>
                   </div>
                   <div className="detail-row-company">
                     <Globe size={18} />
-                    <a href={`https://${companyData.website}`} target="_blank" rel="noopener noreferrer">
-                      {companyData.website}
-                    </a>
+                    {companyData.website ? (
+                      <a href={`https://${companyData.website}`} target="_blank" rel="noopener noreferrer">
+                        {companyData.website}
+                      </a>
+                    ) : (
+                      <span>Website not set</span>
+                    )}
                   </div>
                   <div className="detail-row-company">
                     <Mail size={18} />
@@ -254,7 +339,7 @@ export default function MyCompanyPage() {
                   </div>
                   <div className="detail-row-company">
                     <Phone size={18} />
-                    <span>{companyData.phone}</span>
+                    <span>{companyData.phone || 'Not set'}</span>
                   </div>
                 </div>
               </div>
@@ -367,18 +452,24 @@ export default function MyCompanyPage() {
             >
               <h3 className="section-title-company">Social Media</h3>
               <div className="social-links">
-                <a href={`https://${companyData.socialMedia.linkedin}`} target="_blank" rel="noopener noreferrer" className="social-link">
-                  <span className="social-icon">💼</span>
-                  LinkedIn
-                </a>
-                <a href={`https://twitter.com/${companyData.socialMedia.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="social-link">
-                  <span className="social-icon">🐦</span>
-                  Twitter
-                </a>
-                <a href={`https://${companyData.socialMedia.github}`} target="_blank" rel="noopener noreferrer" className="social-link">
-                  <span className="social-icon">💻</span>
-                  GitHub
-                </a>
+                {companyData.socialMedia.linkedin && (
+                  <a href={`https://${companyData.socialMedia.linkedin}`} target="_blank" rel="noopener noreferrer" className="social-link">
+                    <span className="social-icon">💼</span>
+                    LinkedIn
+                  </a>
+                )}
+                {companyData.socialMedia.twitter && (
+                  <a href={`https://twitter.com/${companyData.socialMedia.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="social-link">
+                    <span className="social-icon">🐦</span>
+                    Twitter
+                  </a>
+                )}
+                {companyData.socialMedia.github && (
+                  <a href={`https://${companyData.socialMedia.github}`} target="_blank" rel="noopener noreferrer" className="social-link">
+                    <span className="social-icon">💻</span>
+                    GitHub
+                  </a>
+                )}
               </div>
             </motion.div>
           </div>

@@ -171,10 +171,13 @@ export default function ProfilePage() {
 
   const fetchProfile = async (userId) => {
     try {
-      const [profileResponse, statsResponse] = await Promise.all([
-        profileAPI.get(userId),
-        profileAPI.getStatistics(userId)
-      ]);
+      const profileResponse = await profileAPI.get(userId);
+      let statsResponse = null;
+      try {
+        statsResponse = await profileAPI.getStatistics(userId);
+      } catch (statsErr) {
+        console.warn('Stats load failed:', statsErr);
+      }
 
       const userData = profileResponse.user;
       
@@ -226,7 +229,7 @@ export default function ProfilePage() {
 
       setProfile(formattedProfile);
       setTempProfile(formattedProfile);
-      setStats(statsResponse.statistics);
+      setStats(statsResponse?.statistics || null);
       
       // Check if profile is incomplete
       if (userData.role === 'company') {
@@ -239,7 +242,7 @@ export default function ProfilePage() {
       }
     } catch (error) {
       console.error('Failed to fetch profile:', error);
-      alert('Failed to load profile. Please try again.');
+      alert('Failed to load profile: ' + (error?.message || 'Please try again'));
     } finally {
       setLoading(false);
     }
@@ -293,6 +296,7 @@ export default function ProfilePage() {
 
         const response = await profileAPI.updateCandidate(user.id, updateData);
         saveUser(response.user);
+        await fetchProfile(user.id);
       } else {
         // Company update
         const updateData = {
@@ -313,9 +317,9 @@ export default function ProfilePage() {
 
         const response = await profileAPI.updateCompany(user.id, updateData);
         saveUser(response.user);
+        await fetchProfile(user.id);
       }
       
-      setProfile(tempProfile);
       setIsEditing(false);
       alert('Profile updated successfully!');
     } catch (error) {

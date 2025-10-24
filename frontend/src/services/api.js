@@ -15,10 +15,20 @@ const apiRequest = async (endpoint, options = {}) => {
       },
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch (e) {
+      const text = await response.text();
+      data = { message: text || 'Unexpected response from server' };
+    }
 
     if (!response.ok) {
-      throw new Error(data.message || 'Something went wrong');
+      const message = (data && (data.message || data.error)) || `HTTP ${response.status}`;
+      const err = new Error(message);
+      err.status = response.status;
+      err.data = data;
+      throw err;
     }
 
     return data;
@@ -40,10 +50,20 @@ const apiFormDataRequest = async (endpoint, formData) => {
       },
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch (e) {
+      const text = await response.text();
+      data = { message: text || 'Unexpected response from server' };
+    }
 
     if (!response.ok) {
-      throw new Error(data.message || 'Something went wrong');
+      const message = (data && (data.message || data.error)) || `HTTP ${response.status}`;
+      const err = new Error(message);
+      err.status = response.status;
+      err.data = data;
+      throw err;
     }
 
     return data;
